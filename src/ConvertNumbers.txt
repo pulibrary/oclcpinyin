@@ -1,0 +1,480 @@
+'MacroName:ConvertNumbers
+'MacroDescription: Convert arabic numerals to pinyin and vice versa
+' To use, highlight the number in the Romanized field and run the macro.  It
+' will search for the corresponding Chinese characters in the original-language
+' field and re-convert them to the alternate format, replacing the original text.
+'Macro written by: Thomas Ventimiglia, Princeton University East Asian Library 
+'Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
+' http://creativecommons.org/licenses/by-sa/3.0/
+'Macro Created: 29 April 2011
+'Macro last modified: 29 April 2011
+'Macro version: 1.0.0
+
+
+'Array of pinyin strings
+Global arrNumStr()
+'Array of Arabic numerals
+Global arrNumDig()
+
+Declare Function ConvertDigit (sField as String, pos as Integer) As Integer
+Declare Function ParseNumbers()
+
+Sub Main
+
+   ReDim arrNumDig(0)
+   ReDim arrNumStr(0)
+
+   Dim CS As Object
+   Set CS = CreateObject("Connex.Client")
+   sSelection = ""
+   startSpace = ""
+   endSpace = ""
+   sTitle = "Convert Numbers"
+   
+   Dim pinyin As Integer
+   
+   If CS.GetSelectedText(sSelection) = False Then
+      MsgBox "No text selected",0,sTitle
+      Exit Sub
+   End If
+
+   'If selection starts or ends with a space, strip it and add it back in later.
+   If Left(sSelection,1) = " " Then
+      startSpace = " "
+      sSelection = Mid(sSelection,2)
+   End If
+   If Right(sSelection,1) = " " Then
+      endSpace = " "
+      sSelection = Left(sSelection,Len(sSelection)-1)
+   End If
+
+   If Left(sSelection,1) Like "[A-Za-z]" Then
+      pinyin = 1
+   ElseIf Left(sSelection,1) Like "[0-9]" Then
+      pinyin = 0
+   Else
+      MsgBox "Selection must either be all numbers or all pinyin text.  Please make another selection.",0,sTitle
+      Exit Sub
+   End If
+
+   valid = 1
+   For i = 1 to Len(sSelection)
+      If (pinyin = 0 And Not(Mid(sSelection,i,1) Like "[0-9 ]")) Or _
+         (pinyin = 1 And Not(Mid(sSelection,i,1) Like "[A-Za-z ]")) Then
+         valid = 0
+      End If
+   Next i   
+   If valid = 0 Then
+      MsgBox "Selection must either be all numbers or all pinyin text.  Please make another selection.",0,sTitle
+      Exit Sub
+   End If
+
+   sSelection = LCase(sSelection)
+   
+   nStart = CS.CursorColumn
+   nEnd = nStart + Len(sSelection)
+   nLine = CS.CursorRow
+   nPrevLine = nLine - 1
+   'The parallel field must appear right above the Romanized field and have the same tag.
+   If nPrevLine < 1 Then
+      MsgBox "No parallel field",0,sTitle
+      Exit Sub
+   End If
+   sPinyinField = ""
+   sCharField = ""
+   If CS.GetFieldLineUnicode(nLine, sPinyinField) = False Then
+      MsgBox "No text selected",0,sTitle
+      Exit Sub
+   End If
+   If CS.GetFieldLineUnicode(nPrevLine, sCharField) = False Then
+      MsgBox "No parallel field",0,sTitle
+      Exit Sub
+   End If
+   
+   If Left(sPinyinField, 3) <> Left(sCharField, 3) Then
+      MsgBox "No parallel field",0,sTitle
+      Exit Sub
+   End If
+   
+   sCharPos = 5
+   sPinyinPos = 5
+   
+   'Determine which subfield of the character field contains the selection
+   Do While nStart > -1
+      pos = InStr(sPinyinPos + 1, sPinyinField, Chr(223))
+      If pos > 0 and pos < nStart Then
+         sPinyinPos = pos
+         sCharPos = InStr(sCharPos+1, sCharField, "&#x01C2;") + 7
+      Else
+         Exit Do
+      End If 
+   Loop
+
+   sCharEnd = Len(sCharField)
+   delimiterPos = InStr(sCharPos+1,sCharField, "&#x01C2;")
+
+   If delimiterPos > 1 And delimiterPos < Len(sCharField) - 8 Then
+      sCharEnd = delimiterPos + 8
+   End If
+
+   For i = sCharPos+1 to sCharEnd
+      nResult = ConvertDigit(sCharField, i)
+      If nResult > -1  And nResult < sCharEnd Then
+         i = nResult - 1
+      Else
+         'End of number reached
+         If UBound(arrNumDig) > 0 Then
+            ParseNumbers
+            'create Arabic-numeral string
+            sDig = ""
+            For j = 1 to UBound(arrNumDig)
+               If arrNumDig(j) <> "" Then
+                  sDig = sDig & arrNumDig(j) & " " 
+                  If Left(sDig,7) Like "# # # #" Then
+                     sDig = Left(sDig,1) & Mid(sDig,3,1) & Mid(sDig,5,1) & Mid(sDig,7)
+                  End If
+               End If
+            Next j
+            
+            'create pinyin string
+            sStr = ""            
+            For j = 1 to UBound(arrNumStr)
+               If arrNumStr(j) <> "" Then
+                  sStr = sStr & arrNumStr(j) & " " 
+               End If
+            Next j
+            If Right(sDig,1) = " " Then
+               sDig = Left(sDig,Len(sDig)-1)
+            End If
+            If Right(sStr,1) = " " Then
+               sStr = Left(sStr,Len(sStr)-1)
+            End If                
+         
+            'replace selected text with new romanization
+            If (pinyin = 1 And sStr = sSelection) Or (pinyin = 0 And sDig = sSelection) Then
+               If pinyin = 1 Then
+                  CS.SetSelectedText(startSpace & sDig & endSpace)
+               Else
+                  If Mid(sPinyinField,nStart-1,1) = chr(34) Or nStart - sPinyinPos < 4 Then
+                     Mid(sStr,1,1) = UCase(Mid(sStr,1,1))
+                  End If
+                  CS.SetSelectedText(startSpace & sStr & endSpace)
+               End If
+              Exit Sub
+            End If
+         End If
+         ReDim arrNumDig(0)
+         ReDim arrNumStr(0) 
+         ReDim arrNumDig(0)
+      End If
+      If Mid(sCharField,i,8) Like "&[#]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F];" Then
+         i = i + 7
+      End If
+   Next i
+   
+   MsgBox "The highlighted text does not match any Chinese script number in the parallel field." &  _
+          "Please highlight some different text and try again.",0,sTitle
+End Sub
+
+'##############################################################################
+'# ConvertDigit: Given a field ans a character position, determines the arabic
+'# and pinyin transliterations for the Chinese digits, and writes them to arrNumDig
+'# and arrNumStr, respectively.  If successful, returns the position in the field
+'# of the next character.  If the character is not a number, returns -1.
+
+Function ConvertDigit(sField As String, pos As Integer) As Integer
+   If Mid(sField,pos,8) Like "&[#]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F];" Then
+      sHex = Mid(sField,pos+3,4)
+      nHex = Val("&H" & sHex & "&")
+      If nHex < 0 Then
+        nHex = nHex + &HFFFF& + 1
+      End If
+      sNumStr = ""
+      sNumDig = ""      
+      Select Case nHex
+         Case &H3007&
+            sNumStr = "ling" 
+            sNumDig = "0"
+         Case &H96F6&
+            sNumStr = "ling" 
+            sNumDig = "0"
+         Case &H4E00&
+            sNumStr = "yi" 
+            sNumDig = "1"
+         Case &H4E8C&
+            sNumStr = "er" 
+            sNumDig = "2"
+         Case &H4E24&
+            sNumStr = "liang" 
+            sNumDig = "2"
+         Case &H5169&
+            sNumStr = "liang" 
+            sNumDig = "2"
+         Case &H4E09&
+            sNumStr = "san" 
+            sNumDig = "3"
+         Case &H56DB&
+            sNumStr = "si" 
+            sNumDig = "4"
+         Case &H4E94&
+            sNumStr = "wu" 
+            sNumDig = "5"
+         Case &H516D&
+            sNumStr = "liu" 
+            sNumDig = "6"
+         Case &H4E03&
+            sNumStr = "qi" 
+            sNumDig = "7"
+         Case &H516B&
+            sNumStr = "ba" 
+            sNumDig = "8"
+         Case &H4E5D&
+            sNumStr = "jiu" 
+            sNumDig = "9"
+         Case &H5341&
+            sNumStr = "shi" 
+            sNumDig = "10"
+         Case &H5EFF&
+            sNumStr = "nian" 
+            sNumDig = "20"
+         Case &H5EFE&
+            sNumStr = "gong" 
+            sNumDig = "20"
+         Case &H5345&
+            sNumStr = "sa" 
+            sNumDig = "30"
+         Case &H534C&
+            sNumStr = "xi" 
+            sNumDig = "40"
+         Case &H767E&
+            sNumStr = "bai"
+            sNumDig = "100"
+         Case &H5343&
+            sNumStr = "qian" 
+            sNumDig = "1000"
+         Case &H842C&
+            sNumStr = "wan" 
+            sNumDig = "10000"
+         Case &H4E07&
+            sNumStr = "wan" 
+            sNumDig = "10000"
+         Case &H5104&
+            sNumStr = "yi" 
+            sNumDig = "100000000"
+         Case &H4EBF&
+            sNumStr = "yi"
+            sNumDig = "100000000"
+      End Select
+      
+      If (sNumStr = "") Then
+         ConvertDigit = -1
+      Else
+         ReDim Preserve arrNumDig(UBound(arrNumDig) + 1)
+         arrNumDig(UBound(arrNumDig)) = sNumDig
+         ReDim Preserve arrNumStr(UBound(arrNumStr) + 1)
+         arrNumStr(UBound(arrNumStr)) = sNumStr
+         ConvertDigit = pos + 8
+      End If
+   Else
+      ConvertDigit = -1
+   End If
+End Function
+
+'##############################################################################
+'# ParseNumbers: This is almost the same as the function in Hanzi2Pinyin, but
+'# with variable names adapted and the final step of copying to arrChars omitted
+
+Function ParseNumbers()
+   numChars = 0
+   places = 9
+   'The number that has been calculated so far
+   'Note: because the number may exceed the maximum integer size, 
+   '  arrPlaces(8) must be checked separately in comparisons
+   total = 0
+   convertAndClear = 0
+
+   'This array keeps track of the current number, by storing
+   'a digit for the 1s, 10s, 100s, etc. place
+   ReDim arrPlaces(places)
+
+   'This first loop goes through arrNums and calculates the numbers represented,
+   'keeping a running total in 'total', and keeping track of the value of each
+   'place of the number in arrPlaces.  When the end of a number is reached, the
+   'convertAndClear flag is set, and the number is copied to arrNums, and the 
+   'other characters from arrNums that have been consumed are cleared.
+
+   For i = 0 to UBound(arrNumDig)
+      mod10 = total Mod 10
+      mod100 = total Mod 100
+      mod1000 = total Mod 1000
+      mod10K = total Mod 10000
+      
+      sNum = arrNumDig(i)
+      If Not(sNum = "") Then
+         nNum = Val(sNum)
+         If nNum < 10 Then 
+            If total < 10  And arrPlaces(8) = 0 Then 
+               numChars = 1
+          arrPlaces(0) = nNum  
+            ElseIf (total >= 10 Or arrPlaces(8) > 0) And mod10 = 0 Then
+               numChars = numChars + 1
+          arrPlaces(0) = nNum  
+            ElseIf (total >= 10 Or arrPlaces(8) > 0) And mod10 > 0 Then
+          convertAndClear = 1
+            End If            
+         ElseIf nNum = 10 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 1
+               numChars = numChars + 1
+            ElseIf mod100 > 0 And mod100 < 10 Then
+                arrPlaces(1) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod100 >= 10 Then
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 20 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 2
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 30 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 3
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 40 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 4
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 100 Then
+            If mod1000 = 0 Then
+               arrPlaces(2) = 1
+               numChars = numChars + 1
+            ElseIf mod1000 > 0 and mod1000 < 10 Then
+               arrPlaces(2) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod1000 >= 10 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 1000 Then
+            If mod10K = 0 Then
+               arrPlaces(3) = 1
+               numChars = numChars + 1
+            ElseIf mod10K > 0 And mod10K < 10 Then
+               arrPlaces(3) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod10K >= 10 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 10000 Then
+            If total = 0 Then
+               arrPlaces(4) = 1
+               numChars = numChars + 1
+            ElseIf total > 0 and arrPlaces(4) = 0 Then
+               arrPlaces(4) = total
+               For j = 0 To 3
+                  arrPlaces(j) = 0
+               Next j
+               numChars = numChars + 1
+            ElseIf arrPlaces(4) > 0 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 100000000 Then
+            If total = 0 Then
+               arrPlaces(8) = 1
+               numChars = numChars + 1
+            ElseIf total > 0 and arrPlaces(8) = 0 Then
+               arrPlaces(8) = total
+          For j = 0 To 4
+         arrPlaces(j) = 0
+          Next j
+               numChars = numChars + 1
+            ElseIf arrPlaces(8) > 0 Then
+          convertAndClear = 1
+            End If            
+         End If
+       Else
+         nNum = 0
+         
+         If numChars > 0 And total < 10 And arrPlaces(8) = 0 Then            
+            numChars = 0
+            ReDim arrPlaces(places)
+         ElseIf total >= 10 Or arrPlaces(8) > 0 Then
+            convertAndClear = 1
+         End If
+       End If 
+       
+       If (convertAndClear = 1) Then
+          arrNumDig(i-numChars) = total
+          For j = i-numChars+1 To i-1 
+             arrNumDig(j) = ""
+          Next j    
+          If arrPlaces(8) > 0 Then
+            t = arrNumDig(i-numChars) + 100000000
+            t = arrPlaces(8) & t
+            tlen = Len(t)
+            t = Left(t,tlen-9) & Right(t,8)
+            arrNumDig(i-numChars) = t
+          End If
+          ReDim arrPlaces(places)
+     If nNum < 10 Then
+        arrPlaces(0) = nNum
+     End If
+     For j = 1 to 8
+        If(nNum = 10^j) Then
+      arrPlaces(j) = 1
+        End If
+          Next j
+     If(sNum = "") Then
+        numChars = 0
+          Else
+             numChars = 1
+       End If
+       convertAndClear = 0
+     End If
+
+       'Re-calculate total
+       total = 0     
+       For p = 0 to 7 
+         total = total + arrPlaces(p)*(10^p)
+       Next p  
+   Next i
+   
+   'After exiting the loop, do one final calculation
+   i = UBound(arrNumDig)
+   If (total >= 10 Or arrPlaces(8) > 0) And arrNumDig(i) <> "" Then
+      arrNumDig(i-numChars+1) = total
+      For j = i-numChars+2 To i 
+         arrNumDig(j) = ""
+      Next j
+      If arrPlaces(8) > 0 Then
+         t = arrNumDig(i-numChars) + 100000000
+         t = arrPlaces(8) & t
+         tlen = Len(t)
+         t = Left(t,tlen-9) & Right(t,8)
+         arrNumDig(i-numChars) = t
+      End If
+      ReDim arrPlaces(places)
+      If nNum < 10 Then
+        arrPlaces(0) = nNum
+      End If
+      For j = 1 to 8
+         If(nNum = 10^j) Then
+            arrPlaces(j) = 1
+         End If
+      Next j
+   End If
+End Function

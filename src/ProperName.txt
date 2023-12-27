@@ -1,0 +1,37 @@
+'MacroName:ProperName
+'MacroDescription: Takes selected text, removes all spaces from the middle, and
+' capitalizes the first letter, i.e. formats it as a proper name
+'Macro written by: Thomas Ventimiglia, Princeton University East Asian Library 
+'Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
+' http://creativecommons.org/licenses/by-sa/3.0/
+'Macro Created: 29 April 2011
+'Macro last modified: 29 April 2011
+'Macro version: 1.0.0
+
+
+Sub Main
+
+   Dim CS As Object
+   Set CS = CreateObject("Connex.Client")
+   sText = ""
+   If CS.GetSelectedText(sText) = True And sText <> "Data contains non-latin script" And Len(sText) > 1 Then  
+      startSpace = ""
+      endSpace = ""
+      If Left(sText,1) = " " Then
+         startSpace = " "
+         sText = Mid(sText,2)
+      End If
+      If Right(sText,1) = " " Then
+         endSpace = " "
+         sText = Mid(sText,1,Len(sText)-1)
+      End If
+      Mid(sText,1,1) = UCase(Mid(sText,1,1))
+      Do While(InStr(1, Left(sText,Len(sText)-1), " "))
+         pos = InStr(1,sText, " ")
+         sText = Left(sText,pos-1) & Mid(sText,pos+1)
+      Loop
+      CS.SetSelectedText(startSpace & sText & endSpace)
+   Else
+      MsgBox "Invalid Selection.  Please select some text in the pinyin field.",0,"Proper Name"
+   End If
+End Sub
