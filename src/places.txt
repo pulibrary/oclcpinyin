@@ -1,0 +1,1140 @@
+﻿上海	Shanghai
+上海市	Shanghai Shi
+中华人民共和国	Zhonghua Renmin Gongheguo
+中华	Zhonghua
+中国	Zhongguo
+中國	﻿Zhongguo
+中華人民共和國	Zhonghua Renmin Gongheguo
+中華	Zhonghua
+乌鲁木齐	Wulumuqi
+乌鲁木齐市	Wulumuqi Shi
+云南	Yunnan
+云南省	Yunnan Sheng
+內蒙古自治區	Nei Menggu Zizhiqu
+內蒙古	Nei Menggu
+兰州	Lanzhou
+兰州市	Lanzhou Shi
+内蒙古自治区	Nei Menggu Zizhiqu
+内蒙古	Nei Menggu
+北京	Beijing
+北京市	Beijing Shi
+南京	Nanjing
+南京市	Nanjing Shi
+南宁	Nanning
+南宁市	Nanning Shi
+南寧	Nanning
+南寧市	Nanning Shi
+南昌	Nanchang
+南昌市	Nanchang Shi
+合肥	Hefei
+合肥市	Hefei Shi
+吉林	Jilin
+吉林省	Jilin Sheng
+新店	Xindian
+呼和浩特	Huhehaote
+呼和浩特市	Huhehaote Shi
+哈尔滨	Haerbin
+哈尔滨市	Haerbin Shi
+哈爾濱	Haerbin
+哈爾濱市	Haerbin Shi
+四川	Sichuan
+四川省	Sichuan Sheng
+天津	Tianjin
+天津市	Tianjin Shi
+太原	Taiyuan
+太原市	Taiyuan Shi
+宁夏回族自治区	Ningxia Huizu Zizhiqu
+宁夏	Ningxia
+安徽	Anhui
+安徽省	Anhui Sheng
+寧夏回族自治區	Ningxia Huizu Zizhiqu
+寧夏	Ningxia
+山东	Shandong
+山东省	Shandong Sheng
+山東	Shandong
+山東省	Shandong Sheng
+山西	Shanxi
+山西省	Shanxi Sheng
+广东	Guangdong
+广东省	Guangdong Sheng
+广州	Guangzhou
+广州市	Guangzhou Shi
+广西壮族自治区	Guangxi Zhuangzu Zizhiqu
+广西	Guangxi
+廣州	Guangzhou
+廣州市	Guangzhou Shi
+廣東	Guangdong
+廣東省	Guangdong Sheng
+廣西壯族自治區	Guangxi Zhuangzu Zizhiqu
+廣西	Guangxi
+成都	Chengdu
+成都市	Chengdu Shi
+拉萨	Lasa
+拉萨市	Lasa Shi
+拉薩	Lasa
+拉薩市	Lasa Shi
+新疆	Xinjiang
+昆明	Kunming
+昆明市	Kunming Shi
+杭州	Hangzhou
+杭州市	Hangzhou Shi
+武汉	Wuhan
+武汉市	Wuhan Shi
+武漢	Wuhan
+武漢市	Wuhan Shi
+江苏	Jiangsu
+江苏省	Jiangsu Sheng
+江蘇	Jiangsu
+江蘇省	Jiangsu Sheng
+江西	Jiangxi
+江西省	Jiangxi Sheng
+河北	Hebei
+河北省	Hebei Sheng
+河南	Henan
+河南省	Henan Sheng
+济南	Jinan
+济南市	Jinan Shi
+浙江	Zhejiang
+浙江省	Zhejiang Sheng
+海南	Hainan
+海南省	Hainan Sheng
+海口	Haikou
+海口市	Haikou Shi
+湖北	Hubei
+湖北省	Hubei Sheng
+湖南	Hunan
+湖南省	Hunan Sheng
+澳門	Aomen
+澳門市	Aomen Shi
+澳门	Aomen
+澳门市	Aomen Shi
+濟南	Jinan
+濟南市	Jinan Shi
+沈阳	Shenyang
+沈阳市	Shenyang Shi
+沈陽	Shenyang
+沈陽市	Shenyang Shi
+瀋陽	Shenyang
+瀋陽市	Shenyang Shi
+渖阳	Shenyang
+渖阳市	Shenyang Shi
+渖陽	Shenyang
+渖陽市	Shenyang Shi
+沉阳	Shenyang
+沉阳市	Shenyang Shi
+沉陽	Shenyang
+沉陽市	Shenyang Shi
+烏魯木齊	Wulumuqi
+烏魯木齊市	Wulumuqi Shi
+甘肃	Gansu
+甘肃省	Gansu Sheng
+甘肅	Gansu
+甘肅省	Gansu Sheng
+石家庄	Shijiazhuang
+石家庄市	Shijiazhuang Shi
+石家莊	Shijiazhuang
+石家莊市	Shijiazhuang Shi
+福州	Fuzhou
+福州市	Fuzhou Shi
+福建	Fujian
+福建省	Fujian Sheng
+蘭州	Lanzhou
+蘭州市	Lanzhou Shi
+西宁	Xi'ning
+西宁市	Xi'ning Shi
+西安	Xi'an
+西安市	Xi'an Shi
+西寧	Xi'ning
+西寧市	Xi'ning Shi
+西藏	Xizang
+貴州	Guizhou
+貴州省	Guizhou Sheng
+貴陽	Guiyang
+貴陽市	Guiyang Shi
+贵州	Guizhou
+贵州省	Guizhou Sheng
+贵阳	Guiyang
+贵阳市	Guiyang Shi
+辽宁	Liaoning
+辽宁省	Liaoning Sheng
+遼寧	Liaoning
+遼寧省	Liaoning Sheng
+郑州	Zhengzhou
+郑州市	Zhengzhou Shi
+鄭州	Zhengzhou
+鄭州市	Zhengzhou Shi
+重庆	Chongqing
+重庆市	Chongqing Shi
+重慶	Chongqing
+重慶市	Chongqing Shi
+銀川	Yinchuan
+銀川市	Yinchuan Shi
+银川	Yinchuan
+银川市	Yinchuan Shi
+長春	Changchun
+長春市	Changchun Shi
+長沙	Changsha
+長沙市	Changsha Shi
+长春	Changchun
+长春市	Changchun Shi
+长沙	Changsha
+长沙市	Changsha Shi
+陕西	Shanxi
+陕西省	Shanxi Sheng
+陝西	Shanxi
+陝西省	Shanxi Sheng
+雲南	Yunnan
+雲南省	Yunnan Sheng
+青海	Qinghai
+青海省	Qinghai Sheng
+香港	Xianggang
+香港市	Xianggang Shi
+黑龍江	Heilongjiang
+黑龍江省	Heilongjiang Sheng
+黑龙江	Heilongjiang
+黑龙江省	Heilongjiang Sheng
+长安	Chang'an
+长安市	Chang'an Shi
+長安	Chang'an
+長安市	Chang'an Shi
+台湾	Taiwan
+台灣	Taiwan
+臺灣	Taiwan
+台北	Taibei
+臺北	Taibei
+台北市	Taibei Shi
+臺北市	Taibei Shi
+宜兰	Yilan
+宜蘭	Yilan
+宜兰市	Yilan Shi
+宜蘭市	Yilan Shi
+桃园	Taoyuan
+桃園	Taoyuan
+桃园市	Taoyuan Shi
+桃園市	Taoyuan Shi
+新竹	Xinzhu
+新竹市	Xinzhu Shi
+苗栗	Miaoli
+苗栗市	Miaoli Shi
+台中	Taizhong
+臺中	Taizhong
+台中市	Taizhong Shi
+臺中市	Taizhong Shi
+彰化	Zhanghua
+彰化市	Zhanghua Shi
+南投	Nantou
+南投市	Nantou Shi
+基隆	Jilong
+基隆市	Jilong Shi
+云林	Yunlin
+雲林	Yunlin
+云林市	Yunlin Shi
+雲林市	Yunlin Shi
+嘉义	Jiayi
+嘉義	Jiayi
+嘉义市	Jiayi Shi
+嘉義市	Jiayi Shi
+台南	Tainan
+臺南	Tainan
+台南市	Tainan Shi
+臺南市	Tainan Shi
+高雄	Gaoxiong
+高雄市	Gaoxiong Shi
+屏东	Pingdong
+屏東	Pingdong
+屏东市	Pingdong Shi
+屏東市	Pingdong Shi
+台东	Taidong
+臺東	Taidong
+台东市	Taidong Shi
+臺東市	Taidong Shi
+台東	Taidong
+台東市	Taidong Shi
+花莲	Hualian
+花蓮	Hualian
+花莲市	Hualian Shi
+花蓮市	Hualian Shi
+澎湖	Penghu
+金门	Jinmen
+金門	Jinmen
+金门市	Jinmen Shi
+金門市	Jinmen Shi
+连江	Lianjiang
+連江	Lianjiang
+连江市	Lianjiang Shi
+連江市	Lianjiang Shi
+保定	Baoding
+保定市	Baoding Shi
+包头	Baotou
+包頭	Baotou
+包头市	Baotou Shi
+包頭市	Baotou Shi
+常州	Changzhou
+常州市	Changzhou Shi
+大连	Dalian
+大連	Dalian
+大连市	Dalian Shi
+大連市	Dalian Shi
+桂林	Guilin
+桂林市	Guilin Shi
+锦州	Jinzhou
+錦州	Jinzhou
+锦州市	Jinzhou Shi
+錦州市	Jinzhou Shi
+九江	Jiujiang
+九江市	Jiujiang Shi
+洛阳	Luoyang
+洛陽	Luoyang
+洛阳市	Luoyang Shi
+洛陽市	Luoyang Shi
+南通	Nantong
+南通市	Nantong Shi
+宁波 	Ningbo
+寧波	Ningbo
+宁波市 	Ningbo Shi
+寧波市	Ningbo Shi
+青岛	Qingdao
+青島	Qingdao
+青岛市	Qingdao Shi
+青島市	Qingdao Shi
+齐齐哈尔	Qiqihaer
+齊齊哈爾	Qiqihaer
+齐齐哈尔市	Qiqihaer Shi
+齊齊哈爾市	Qiqihaer Shi
+泉州	Quanzhou
+泉州市	Quanzhou Shi
+绍兴	Shaoxing
+紹興	Shaoxing
+绍兴市	Shaoxing Shi
+紹興市	Shaoxing Shi
+深圳	Shenzhen
+深圳市	Shenzhen Shi
+苏州	Suzhou
+蘇州	Suzhou
+苏州市	Suzhou Shi
+蘇州市	Suzhou Shi
+温州	Wenzhou
+温州市	Wenzhou Shi
+溫州	Wenzhou
+溫州市	Wenzhou Shi
+芜湖	Wuhu
+蕪湖	Wuhu
+芜湖市	Wuhu Shi
+蕪湖市	Wuhu Shi
+无锡	Wuxi
+無錫	Wuxi
+无锡市	Wuxi Shi
+無錫市	Wuxi Shi
+厦门	Xiamen
+廈門	Xiamen
+厦门市	Xiamen Shi
+廈門市	Xiamen Shi
+湘潭	Xiangtan
+湘潭市	Xiangtan Shi
+咸阳	Xianyang
+咸陽	Xianyang
+咸阳市	Xianyang Shi
+咸陽市	Xianyang Shi
+鹹阳	Xianyang
+鹹陽	Xianyang
+鹹阳市	Xianyang Shi
+鹹陽市	Xianyang Shi
+徐州	Xuzhou
+徐州市	Xuzhou Shi
+扬州	Yangzhou
+揚州	Yangzhou
+扬州市	Yangzhou Shi
+揚州市	Yangzhou Shi
+烟台	Yantai
+煙台	Yantai
+煙臺	Yantai
+烟臺	Yantai
+烟台市	Yantai Shi
+煙台市	Yantai Shi
+煙臺市	Yantai Shi
+烟臺市	Yantai Shi
+张家口	Zhangjiakou
+张家口市	Zhangjiakou Shi
+張家口	Zhangjiakou
+張家口市	Zhangjiakou Shi
+镇江	Zhenjiang
+鎮江	Zhenjiang
+镇江市	Zhenjiang Shi
+鎮江市	Zhenjiang Shi
+珠海	Zhuhai
+珠海市	Zhuhai Shi
+甘孜	Ganzi
+甘孜藏族自治州	Ganzi Zangzu Zizhizhou
+自治州	Zizhizhou
+自治县	Zizhixian
+自治縣	Zizhixian
+自治区	Zizhiqu
+自治區	Zizhiqu
+纳西	Naxi
+納西	Naxi
+阿坝州	Aba Zhou
+阿壩州	Aba Zhou
+敦煌	Dunhuang
+滿洲	Manzhou
+满洲	Manzhou
+蒙古	Menggu
+維吾爾	Weiwuer
+维吾尔	Weiwuer
+朝鮮	Chaoxian
+朝鲜	Chaoxian
+民國	Minguo
+民国	Minguo
+共和國	Gongheguo
+共和国	Gongheguo
+西寧	Xining
+西宁	Xining
+西寧市	Xining Shi
+西宁市	Xining Shi
+新加坡	Xinjiapo
+新加坡市	Xinjiapo Shi
+马来西亚	Malaixiya
+馬來西亞	Malaixiya
+日本	Riben
+东京	Dongjing
+東京	Dongjing
+韩国	Hanguo
+韓國	Hanguo
+﻿阿尔巴尼亚	A'erbaniya
+阿爾巴尼亞	A'erbaniya
+阿尔及利亚	A'erjiliya
+阿爾及利亞	A'erjiliya
+﻿阿富汗	Afuhan
+阿根廷	Agenting
+愛爾蘭	Aierlan
+爱尔兰	Aierlan
+愛荷華州	Aihehua zhou
+爱荷华州	Aihehua zhou
+埃及	Aiji
+埃塞俄比亚	Aisai'ebiya
+埃塞俄比亞	Aisai'ebiya
+愛沙尼亞	Aishaniya
+爱沙尼亚	Aishaniya
+阿肯色州	Akensezhou
+阿拉伯	Alabo
+阿拉斯加	Alasijia
+阿路巴	Aluba
+阿曼	Aman
+阿姆斯特丹	Amusitedan
+安道尔	Andao'er
+安道爾	Andao'er
+安地卡	Andika
+安哥拉	Angela
+安圭拉	Anguila
+澳大利亚	Aodaliya
+澳大利亞	Aodaliya
+奥地利	Aodili
+奧地利	Aodili
+澳洲	Aozhou
+阿塞拜疆	Asaibaijiang
+阿石摩卡	Ashimoka
+巴貝多	Babeiduo
+巴贝多	Babeiduo
+巴布达	Babuda
+巴布達	Babuda
+巴布亚纽几内亚	Babyua Niujineiya
+巴布亞紐幾內亞	Babyua Niujineiya
+巴格达	Bageda
+巴格達	Bageda
+巴哈馬	Bahama
+巴哈马	Bahama
+白俄罗斯	Bai'eluosi
+白俄羅斯	Bai'eluosi
+百幕达	Baimuda
+百幕達	Baimuda
+巴基斯坦	Bajisitan
+巴基斯坦伊斯兰共和国	Bajisitan Yisilan Gongheguo
+巴基斯坦伊斯蘭共和國	Bajisitan Yisilan Gongheguo
+巴拉圭	Balagui
+巴勒斯坦	Balesitan
+巴黎	Bali
+巴林	Balin
+巴拿馬	Banama
+巴拿马	Banama
+保加利亚	Baojialiya
+保加利亞	Baojialiya
+巴塞罗那	Basailuona
+巴塞羅那	Basailuona
+巴西	Baxi
+北冰洋	Beibingyang
+北韓	Beihan
+北韩	Beihan
+貝克島	Beikedao
+贝克岛	Beikedao
+貝裏斯	Beilisi
+贝里斯	Beilisi
+貝魯特	Beilute
+贝鲁特	Beilute
+北馬裏安納	Beimali'anna
+北马里安纳	Beimali'anna
+貝南	Beinan
+贝南	Beinan
+比利时	Bilishi
+比利時	Bilishi
+冰岛	Bingdao
+冰島	Bingdao
+比索	Bisuo
+波多黎各	Boduolige
+波兰	Bolan
+波蘭	Bolan
+玻裏尼西亞	Bolinixiya
+玻里尼西亚	Bolinixiya
+帛琉	Boliu
+玻利維亞	Boliweiya
+玻利维亚	Boliweiya
+波士頓	Boshidun
+波士顿	Boshidun
+波士尼亚	Boshiniya
+波士尼亞	Boshiniya
+不丹	Budan
+布达佩斯	Budapeisi
+布達佩斯	Budapeisi
+不干达	Buganda
+不幹達	Buganda
+布加勒斯特	Bujialesite
+布吉納法索	Bujinafasuo
+布吉纳法索	Bujinafasuo
+布拉柴維爾	Bulachaiwei'er
+布拉柴维尔	Bulachaiwei'er
+布拉格	Bulage
+布隆迪	Bulongdi
+布魯塞爾	Bulusai'er
+布鲁塞尔	Bulusai'er
+布琼布拉	Buqiongbula
+布瓊布拉	Buqiongbula
+布宜諾斯艾利斯	Buyinuosi'ailisi
+布宜诺斯艾利斯	Buyinuosi'ailisi
+查德	Chade
+赤道几内亚	Chidaojineiya
+赤道幾內亞	Chidaojineiya
+丹麥	Danmai
+丹麦	Danmai
+大峡谷	Daxiagu
+大峽谷	Daxiagu
+大西洋	Daxiyang
+德国	Deguo
+德國	Deguo
+德意志联邦共和国	Deyizhi Lianbang Gongheguo
+德意志聯邦共和國	Deyizhi Lianbang Gongheguo
+东帝汶	Dongdiwen
+東帝汶	Dongdiwen
+多明尼加	Duomingnijia
+多米尼克	Duominike
+厄瓜多尔	Eguaduo'er
+厄瓜多爾	Eguaduo'er
+俄离垂亚	Elichuiya
+俄離垂亞	Elichuiya
+俄罗斯	Eluosi
+俄羅斯	Eluosi
+法国	Faguo
+法國	Faguo
+法罗群岛	Faluo Qundao
+法羅群島	Faluo Qundao
+梵蒂岗	Fandigang
+梵蒂崗	Fandigang
+法属盖亚纳	Fashugaiyana
+法屬蓋亞納	Fashugaiyana
+法属圭亚那	Fashuguiyana
+法屬圭亞那	Fashuguiyana
+菲律宾	Feilübin
+菲律賓	Feilübin
+非洲	Feizhou
+芬兰	Fenlan
+芬蘭	Fenlan
+佛罗里达	Foluolida
+佛羅里達	Foluolida
+福克兰群岛	Fukelan Qundao
+福克蘭群島	Fukelan Qundao
+盖亚纳	Gaiyana
+蓋亞納	Gaiyana
+甘比亚	Ganbiya
+甘比亞	Ganbiya
+刚果	Gangguo
+剛果	Gangguo
+歌德普洛	Gedepuluo
+格陵兰	Gelinglan
+格陵蘭	Gelinglan
+哥伦比亚	Gelunbiya
+哥倫比亞	Gelunbiya
+葛摩	Gemo
+格瑞那达	Geruinada
+格瑞那達	Geruinada
+哥斯达黎加	Gesidalijia
+哥斯達黎加	Gesidalijia
+瓜蒂馬拉	Guadimala
+瓜蒂马拉	Guadimala
+关岛	Guandao
+關島	Guandao
+古巴	Guba
+海德公园	Haidegongyuan
+海德公園	Haidegongyuan
+海地	Haidi
+汉堡	Hanbao
+漢堡	Hanbao
+好莱坞	Haolaiwu
+好萊塢	Haolaiwu
+豪兰岛	Haolandao
+豪蘭島	Haolandao
+哈萨克斯坦	Hasakesitan
+哈薩克斯坦	Hasakesitan
+赫德岛	Hededao
+赫德島	Hededao
+荷兰	Helan
+荷蘭	Helan
+赫塞歌維納	Hesaigeweina
+赫塞歌维纳	Hesaigeweina
+荷属安替列斯	Heshuantiliesi
+荷屬安替列斯	Heshuantiliesi
+宏都拉斯	Hongdulasi
+华盛顿	Huashengdun
+華盛頓	Huashengdun
+加利福尼亚	Jialifuniya
+加利福尼亞	Jialifuniya
+迦納	Jiana
+迦纳	Jiana
+加拿大	Jianada
+柬埔寨	Jianpuzhai
+教廷	Jiaoting
+加彭	Jiapeng
+加萨走廊	Jiasazoulang
+加薩走廊	Jiasazoulang
+加維斯島	Jiaweisidao
+加维斯岛	Jiaweisidao
+加州	Jiazhou
+吉布地	Jibudi
+捷克共和国	Jieke Gongheguo
+捷克共和國	Jieke Gongheguo
+吉尔吉斯坦	Jierjisitan
+吉爾吉斯坦	Jierjisitan
+吉裏巴斯	Jilibasi
+吉里巴斯	Jilibasi
+几内亚	Jineiya
+幾內亞	Jineiya
+京曼岛	Jingmandao
+京曼島	Jingmandao
+旧金山	Jiujinshan
+舊金山	Jiujinshan
+卡达	Kada
+卡達	Kada
+开科斯群岛	Kaikesi Qundao
+開科斯群島	Kaikesi Qundao
+喀麥隆	Kaimailong
+喀麦隆	Kaimailong
+开曼群岛	Kaiman Qundao
+開曼群島	Kaiman Qundao
+柯克群岛	Keke Qundao
+柯克群島	Keke Qundao
+可可斯群岛	Kekesi Qundao
+可可斯群島	Kekesi Qundao
+克罗埃西亚	Keluo'eixiya
+克羅埃西亞	Keluo'eixiya
+肯亚	Kenya
+肯亞	Kenya
+科威特	Keweite
+莱比瑞亚	Laibiruiya
+萊比瑞亞	Laibiruiya
+賴索托	Laisuotuo
+赖索托	Laisuotuo
+滥开夏	Lankaixia
+濫開夏	Lankaixia
+拉脫維亞	Latuoweiya
+拉脱维亚	Latuoweiya
+寮国	Liaoguo
+寮國	Liaoguo
+黎巴嫩	Libanen
+利比亚	Libiya
+利比亞	Libiya
+列支敦斯登	Liezhidunsideng
+立陶宛	Litaowan
+留尼旺	Liuniwang
+盧安達	Luanda
+卢安达	Lu'anda
+盧安達	Lu'anda
+伦敦	Lundun
+倫敦	Lundun
+罗马	Luoma
+羅馬	Luoma
+罗马尼亚	Luomaniya
+羅馬尼亞	Luomaniya
+洛杉矶	Luoshanji
+洛杉磯	Luoshanji
+卢森堡	Lusenbao
+盧森堡	Lusenbao
+馬達加斯加	Madajiasijia
+马达加斯加	Madajiasijia
+馬爾地夫	Maerdifu
+马尔地夫	Ma'erdifu
+馬爾他	Ma'erta
+马尔他	Ma'erta
+馬來亞	Malaiya
+马来亚	Malaiya
+馬拉加西	Malajiaxi
+马拉加西	Malajiaxi
+馬拉維	Malawei
+马拉维	Malawei
+馬利	Mali
+马利	Mali
+曼城岛	Manchengdao
+曼城島	Manchengdao
+茅利塔尼亚	Maolitaniya
+茅利塔尼亞	Maolitaniya
+馬其頓	Maqidun
+马其顿	Maqidun
+马绍尔群岛	Mashaoerqünda
+馬紹爾群島	Mashao'erqündao
+美国	Meiguo
+美國	Meiguo
+美属萨摩亚	Meizhusamoya
+美屬薩摩亞	Meizhusamoya
+蒙古	Menggu
+孟加拉	Mengjiala
+蒙特色拉特岛	Mengteselatedao
+蒙特色拉特島	Mengteselatedao
+緬甸	Miandian
+缅甸	Miandian
+密克罗尼西亚	Mikeluonixiya
+密克羅尼西亞	Mikeluonixiya
+密魯共和國	Milu Gongheguo
+密鲁共和国	Milu Gongheguo
+密西根	Mixigen
+摩尔多瓦	Mo'erduowa
+摩爾多瓦	Mo'erduowa
+莫裏西斯	Molixisi
+莫里西斯	Molixisi
+摩洛哥	Moluoge
+摩納哥	Monage
+摩纳哥	Monage
+莫桑比克	Mosangbike
+莫斯科	Mosike
+墨西哥	Moxige
+慕尼黑	Munihei
+奈及利亚	Naijiliya
+奈及利亞	Naijiliya
+納米比亞	Namibiya
+纳米比亚	Namibiya
+南极洲	Nanjizhou
+南極洲	Nanjizhou
+南斯拉夫	Nansilafu
+納瓦薩島	Nawasadao
+纳瓦萨岛	Nawasadao
+尼泊尔	Nibo'er
+尼泊爾	Nibo'er
+尼加拉瓜	Nijialagua
+尼日	Niri
+牛津	Niujin
+紐西蘭	Niuxilan
+纽西兰	Niuxilan
+紐約	Niuyue
+纽约	Niuyue
+諾福克島	Nuofukedao
+诺福克岛	Nuofukedao
+諾魯	Nuolu
+诺鲁	Nuolu
+挪威	Nuowei
+欧洲	Ouzhou
+歐洲	Ouzhou
+帕迈拉到	Pamailadao
+帕邁拉到	Pamailadao
+浦隆迪	Pulongdi
+葡萄牙	Putaoya
+乔治亚	Qiaozhiya
+喬治亞	Qiaozhiya
+日本国	Ribenguo
+日本國	Ribenguo
+萨尔瓦多	Sa'erwaduo
+薩爾瓦多	Sa'erwaduo
+賽普勒斯	Saipulesi
+赛普勒斯	Saipulesi
+萨摩亚	Samoya
+薩摩亞	Samoya
+尚比亚	Shangbiya
+尚比亞	Shangbiya
+珊瑚海	Shanhuhai
+圣诞岛	Shengdandao
+聖誕島	Shengdandao
+圣多美	Shengduomei
+聖多美	Shengduomei
+圣露西亚	Shengluxiya
+聖露西亞	Shengluxiya
+圣马力诺	Shengmalinuo
+聖馬力諾	Shengmalinuo
+圣文森	Shengwensen
+聖文森	Shengwensen
+泰王国	Tai Wangguo
+泰王國	Tai Wangguo
+外蒙古	Waimenggu
+瓦裏斯	Walisi
+瓦里斯	Walisi
+﻿万那杜	Wannadu
+萬那杜	Wannadu
+維德角	Weidejiao
+维德角	Weidejiao
+維爾京群島	Wei'erjing Qundao
+维尔京群岛	Wei'erjing Qundao
+維克島	Weikedao
+维克岛	Weikedao
+委內瑞拉	Weineiruila
+委内瑞拉	Weineiruila
+威尼斯	Weinisi
+汶莱	Wenlai
+汶萊	Wenlai
+乌拉圭	Wulagui
+烏拉圭	Wulagui
+乌兹别克斯坦	Wuzibiekesitan
+烏茲別克斯坦	Wuzibiekesitan
+象牙海岸	Xiangyahaian
+希腊	Xila
+希臘	Xila
+辛巴威	Xinbawei
+新喀裏多尼亞	Xinkaliduoniya
+新喀里多尼亚	Xinkaliduoniya
+新奥尔良	Xinnao'erliang
+新奧爾良	Xinnao'erliang
+新西兰	Xinxilan
+新西蘭	Xinxilan
+新泽西	Xinzexi
+新澤西	Xinzexi
+匈牙利	Xiongyali
+牙买加	Yamaijia
+牙買加	Yamaijia
+亚美尼亚	Yameiniya
+亞美尼亞	Yameiniya
+央棉岛	Yangmiandao
+央棉島	Yangmiandao
+亚洲	Yazhou
+亞洲	Yazhou
+叶门	Yemen
+葉門	Yemen
+意大利	Yidali
+伊拉克	Yilake
+伊朗	Yilang
+印度	Yindu
+印度尼西亚	Yindunixiya
+印度尼西亞	Yindunixiya
+英格兰	Yinggelan
+英格蘭	Yinggelan
+英属印度	Yingshuyindu
+英屬印度	Yingshuyindu
+印尼	Yinni
+以色列	Yiselie
+依索欧比亚	Yisuo'oubiya
+依索歐比亞	Yisuo'oubiya
+尤罗帕岛	Youluopadao
+尤羅帕島	Youluopadao
+約旦	Yuedan
+约旦	Yuedan
+越南	Yuenan
+泽西岛	Zexidao
+澤西島	Zexidao
+詹斯頓島	Zhansidundao
+詹斯顿岛	Zhansidundao
+直布罗陀	Zhibuluotuo
+直布羅陀	Zhibuluotuo
+芝加哥	Zhijiage
+智利	Zhili
+中非	Zhongfei
+中途岛	Zhongtudao
+中途島	Zhongtudao
+民初	Min chu
+淡水	Danshui
+延边	Yanbian
+延邊	Yanbian
+延边朝鲜族自治州	Yanbian Chaoxianzu Zizhizhou
+延邊朝鮮族自治州	Yanbian Chaoxianzu Zizhizhou
+普陀	Putuo
+普陀山	Putuo Shan
+上饶	Shangrao
+上饶市	Shangrao Shi
+上饒	Shangrao
+上饒市	Shangrao Shi
+株洲	Zhuzhou
+安次区	Anci Qu
+安次區	Anci Qu
+安庆市	Anqing Shi 
+安慶市	Anqing Shi 
+鞍山市	Anshan Shi 
+白银区	Baiyin Qu 
+白銀區	Baiyin Qu 
+白云区	Baiyun Qu
+白雲區	Baiyun Qu
+宝安区	Bao'an Qu 
+寶安區	Bao'an Qu 
+宝鸡市	Baoji Shi 
+寶雞市	Baoji Shi 
+巴音郭楞蒙古自治州	Bayinguoleng Menggu Zizhizhou 
+本溪市	Benxi Shi 
+滨湖区	Binhu Qu
+濱湖區	Binhu Qu
+滨州市	Binzhou Shi 
+濱州市	Binzhou Shi 
+博兴县	Boxing Xian 
+博興縣	Boxing Xian 
+苍山县	Cangshan Xian 
+蒼山縣	Cangshan Xian 
+沧州市	Cangzhou Shi 
+滄州市	Cangzhou Shi 
+册亨县	Ceheng Xian 
+冊亨縣	Ceheng Xian 
+昌平区	Changping Qu
+昌平區	Changping Qu
+常山县	Changshan Xian 
+常山縣	Changshan Xian 
+常熟市	Changshu Shi 
+成华区	Chenghua Qu
+成華區	Chenghua Qu
+崇州市	Chongzhou Shi 
+滁县地区	Chu Xian Diqu 
+滁縣地區	Chu Xian Diqu 
+大理市	Dali Shi 
+大连市	Dalian Shi 
+大連市	Dalian Shi 
+大理州	Dalizhou 
+大兴区	Daxing Qu 
+大興區	Daxing Qu 
+达州市	Dazhou Shi 
+達州市	Dazhou Shi 
+东港市	Donggang Shi
+東港市	Donggang Shi
+鄂尔多斯市城建	E'ersuosi Shi
+鄂爾多斯市城建	E'ersuosi Shi
+鄂州市	Ezhou Shi
+肥城县	Feicheng Xian 
+肥城縣	Feicheng Xian 
+丰台区	Fengtai Qu
+丰台區	Fengtai Qu
+奉贤地区	Fengxiang Diqu
+奉賢地區	Fengxiang Diqu
+阜阳市	Fuyang Shi 
+阜陽市	Fuyang Shi 
+高阳县	Gaoyang Xian 
+高陽縣	Gaoyang Xian 
+鼓楼区	Gulou Qu 
+鼓樓區	Gulou Qu 
+海盐县	Haiyan Xian 
+海鹽縣	Haiyan Xian 
+寒亭区	Hanting Qu
+寒亭區	Hanting Qu
+河北区	Hebei Qu 
+河北區	Hebei Qu 
+鹤壁市	Hebi Shi 
+鶴壁市	Hebi Shi 
+合川区	Hechuan Qu
+合川區	Hechuan Qu
+菏泽地区	Heze Diqu 
+菏澤地區	Heze Diqu 
+淮南市	Huainan Shi 
+黄石市	Huangshi Shi 
+黃石市	Huangshi Shi 
+惠民县	Huimin Xian 
+惠民縣	Huimin Xian 
+佳木斯市	Jiamusi Shi 
+江油市	Jiangyou Shi 
+椒江区	Jiaojiang Qu
+椒江區	Jiaojiang Qu
+胶州市	Jiaozhou Shi 
+膠州市	Jiaozhou Shi 
+嘉善县	Jiashan Xian 
+嘉善縣	Jiashan Xian 
+嘉兴市	Jiaxing Shi 
+嘉興市	Jiaxing Shi 
+揭阳市	Jieyang Shi 
+揭陽市	Jieyang Shi 
+金县	Jin Xian 
+金縣	Jin Xian 
+济南市	Jinan Shi 
+濟南市	Jinan Shi 
+金阊区	Jinchang Qu
+金閶區	Jinchang Qu
+晋城市	Jincheng Shi 
+晉城市	Jincheng Shi 
+静海县	Jinghai Xian 
+靜海縣	Jinghai Xian 
+荆州地区	Jingzhou Diqu
+荊州地區	Jingzhou Diqu
+荆州市	Jingzhou Shi
+荊州市	Jingzhou Shi
+金山县	Jinshan Xian 
+金山縣	Jinshan Xian 
+莒南县	Ju'nan Xian 
+莒南縣	Ju'nan Xian 
+巨野县	Juye Xian 
+鉅野縣	Juye Xian 
+开封市	Kaifeng Shi 
+開封市	Kaifeng Shi 
+库尔勒市	Ku'erle Shi 
+庫爾勒市	Ku'erle Shi 
+昆明市	Kunming Shi 
+来安县	Lai'an Xian 
+來安縣	Lai'an Xian 
+莱芜市	Laiwu Shi 
+萊蕪市	Laiwu Shi 
+兰山区	Lanshan Qu 
+蘭山區	Lanshan Qu 
+兰溪市	Lanxi Shi 
+蘭溪市	Lanxi Shi 
+聊城地区	Liaocheng Diqu 
+聊城地區	Liaocheng Diqu 
+聊城市	Liaocheng Shi 
+辽阳市	Liaoyang Shi 
+遼陽市	Liaoyang Shi 
+临汾市	Linfen Shi
+臨汾市	Linfen Shi
+灵丘县	Lingqiu xian 
+靈丘縣	Lingqiu xian 
+临海市	Linhai Shi 
+臨海市	Linhai Shi 
+临澧县	Linli Xian 
+臨澧縣	Linli Xian 
+临朐县	Linqu Xian 
+臨朐縣	Linqu Xian 
+临沭县	Linshu Xian 
+臨沭縣	Linshu Xian 
+临夏县	Linxia Xian 
+臨夏縣	Linxia Xian 
+临沂地区	Linyi Diqu 
+臨沂地區	Linyi Diqu 
+临沂市	Linyi Shi 
+臨沂市	Linyi Shi 
+临邑县	Linyi Xian 
+臨邑縣	Linyi Xian 
+柳州市	Liuzhou Shi 
+荔湾区	Liwan Qu 
+荔灣區	Liwan Qu 
+罗庄区	Luozhuang Qu 
+羅莊區	Luozhuang Qu 
+马钢	Magang 
+馬鋼	Magang 
+门头沟区	Mentougou Qu 
+門頭溝區	Mentougou Qu 
+绵阳市	Mianyang Shi 
+綿陽市	Mianyang Shi 
+弥勒县	Mile Xian 
+彌勒縣	Mile Xian 
+牡丹江市	Mudanjiang Shi 
+南开区	Nankai Qu 
+南開區	Nankai Qu 
+彭州市	Pengzhou Shi 
+平顶山市	Pingdingshan Shi 
+平頂山市	Pingdingshan Shi 
+平江区	Pingjiang Qu 
+平江區	Pingjiang Qu 
+平阳县	Pingyang Xian 
+平陽縣	Pingyang Xian 
+平邑县	Pingyi Xian 
+平邑縣	Pingyi Xian 
+浦东新区	Pudong Xinqu
+浦東新區	Pudong Xinqu
+莆田市	Putian Shi 
+濮阳市	Puyang Shi
+濮陽市	Puyang Shi
+潜江市	Qianjiang Shi 
+潛江市	Qianjiang Shi 
+青浦县	Qingpu Xian 
+青浦縣	Qingpu Xian 
+青田县	Qingtian Xian 
+青田縣	Qingtian Xian 
+琼海市	Qionghai Shi 
+瓊海市	Qionghai Shi 
+曲靖市	Qujing Shi
+壤塘县	Rangtang Xian
+壤塘縣	Rangtang Xian
+日照市	Rizhao Shi 
+三台县	Santai Xian
+三台縣	Santai Xian
+上城区	Shangcheng Qu 
+上城區	Shangcheng Qu 
+上海地区	Shanghai Diqu
+上海地區	Shanghai Diqu
+商丘县	Shangqiu Xian 
+商丘縣	Shangqiu Xian 
+邵阳市	Shaoyang Shi
+邵陽市	Shaoyang Shi
+沈河区	Shenhe Qu 
+沈河區	Shenhe Qu 
+十堰	Shiyan 
+寿县	Shou Xian 
+壽縣	Shou Xian 
+泰安市	Tai'an Shi 
+台安县	Tai'an Xian 
+台安縣	Tai'an Xian 
+泰兴市	Taixing Shi 
+泰興市	Taixing Shi 
+台州市	Taizhou Shi 
+泰州市	Taizhou Shi 
+郯城县	Tancheng Xian 
+郯城縣	Tancheng Xian 
+天水市	Tianshui Shi 
+通辽市	Tongliao Shi
+通遼市	Tongliao Shi
+通州区	Tongzhou Qu
+通州區	Tongzhou Qu
+潍坊市	Weifang Shi 
+濰坊市	Weifang Shi 
+巍山县	Weishan Xian 
+巍山縣	Weishan Xian 
+文安县	Wen'an Xian 
+文安縣	Wen'an Xian 
+吴江市	Wujiang Shi 
+吳江市	Wujiang Shi 
+乡宁县	Xiangning Xian
+鄉寧縣	Xiangning Xian
+萧山市	Xiaoshan Shi 
+蕭山市	Xiaoshan Shi 
+西城区	Xicheng Qu
+西城區	Xicheng Qu
+西岗区	Xigang Qu
+西崗區	Xigang Qu
+新昌县	Xinchang Xian 
+新昌縣	Xinchang Xian 
+新会	Xinhui 
+新會	Xinhui 
+新密市	Xinmi Shi 
+新乡市	Xinxiang Shi 
+新鄉市	Xinxiang Shi 
+徐汇区	Xuhui Qu 
+徐匯區	Xuhui Qu 
+雁北地区	Yanbei Diqu 
+雁北地區	Yanbei Diqu 
+盐城市	Yancheng Shi 
+鹽城市	Yancheng Shi 
+盐都区	Yandu Qu 
+鹽都區	Yandu Qu 
+阳泉市	Yangquan Shi 
+陽泉市	Yangquan Shi 
+烟台市	Yantai Shi 
+煙台市	Yantai Shi 
+宜昌市	Yichang Shi 
+义乌市	Yiwu Shi 
+義烏市	Yiwu Shi 
+益阳地区	Yiyang Diqu 
+益陽地區	Yiyang Diqu 
+沂源县	Yiyuan Xian 
+沂源縣	Yiyuan Xian 
+永康市	Yongkang Shi 
+乐清市	Yueqing Shi 
+樂清市	Yueqing Shi 
+枣庄市	Zaozhuang Shi 
+棗莊市	Zaozhuang Shi 
+张家港市	Zhangjiagang Shi 
+張家港市	Zhangjiagang Shi 
+朝阳市	Zhaoyang Shi 
+朝陽市	Zhaoyang Shi 
+朝阳县	Zhaoyang Xian 
+朝陽縣	Zhaoyang Xian 
+芝罘区	Zhifu Qu 
+芝罘區	Zhifu Qu 
+中山市	Zhongshan Shi
+中山区	Zhongshang Qu
+中山區	Zhongshang Qu
+舟山市	Zhoushan Shi 
+淄博市	Zibo Shi 
+自贡	Zigong 
+自貢	Zigong 
+邹城市	Zoucheng Shi 
+鄒城市	Zoucheng Shi 
+	
+

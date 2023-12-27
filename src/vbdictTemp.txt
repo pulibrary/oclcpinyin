@@ -1,0 +1,812 @@
+'MacroName Hanzi2Pinyin
+'MacroDescription:Automatically transliterate Chinese characters into Pinyin
+'Macro written by: Thomas Ventimiglia, Princeton University East Asian Library 
+' (Based on Korean2Latin by Joel Hahn, Niles Public Library District)
+'Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
+' http://creativecommons.org/licenses/by-sa/3.0/
+'Dictionary based on three sources:
+' - Unihan database: http://unicode.org/charts/unihan.html . Last updated 2020-02-18.
+' - CC-CEDICT: http://www.mdbg.net/chindict/chindict.php?page=cedict . Last Updated 2020-04-06.
+' - User feedback: https://library.princeton.edu/eastasian/oclcpinyin/pinyinform.php
+'Macro Created: 5 January 2011
+'Macro last modified: 21 April 2021
+'Macro version: 2.1.1
+
+Declare Function IsChineseChar(sNCR) As Integer
+Declare Function GetHexCode(sChar As String) as Long
+Declare Function ReplaceAll(sStr As String, sFind As String, sReplace as String) As String
+Declare Function TransliterateChinese(i As Integer) As String
+Declare Function ValidateField(sStr As String) As String
+Declare Function ConvertNumbers(sField As String)
+Declare Function ParseNumbers()
+[Function Declarations]
+
+Global arrChars()
+Global arrNums()
+
+Sub Main
+
+   Dim CS As Object
+   Set CS = CreateObject("Connex.Client")
+   ReDim arrChars(0)
+
+   bool = CS.GetFieldLineUnicode(CS.CursorRow, sField)
+   If bool = FALSE Then
+      MsgBox "Not viewing a MARC record. Exiting..."
+      Exit Sub
+   End If
+
+   'Replace EOP character in indicator fields with period
+   sField = ReplaceAll(sField, "&#x220E;",".")
+   
+
+   origField = sField
+
+   'Pull the tag name and indicators
+   NewField = Left(sField, 5)
+   'The text of the field
+   sField = Mid(sField, 6)
+   
+   'Make sure field contains Chinese text
+   i = 1 : nHasChinese = 0
+   Do While i <= Len(sField) - 7
+     a = Mid(sField, i, 8)
+     If IsChineseChar(Mid(sField, i, 6)) Then
+       nHasChinese = 1
+       Exit Do
+     End If
+     i = i + 1
+   Loop
+   If nHasChinese = 0 Then
+      MsgBox "Field contains no Chinese characters. Exiting..."
+      Exit Sub
+   End If
+   
+   'Change wide spaces to normal spaces
+   sField = ReplaceAll(sField, "&#x3000;", " ")
+   'Convert dunhao comma
+   sField = ReplaceAll(sField, "&#x3001;", ", ")
+   'Convert CJK period
+   sField = ReplaceAll(sField, "&#x3002;", ".")
+   'Convert Middle Dot
+   sField = ReplaceAll(sField, "&#x30FB;", " ")
+   sField = ReplaceAll(sField, chr(168), " ")
+   'Convert Long Dash
+   sField = ReplaceAll(sField, "&#x30FC;", ":")
+   sField = ReplaceAll(sField, "&#x2014;", ":")
+   
+
+   'Replace Fullwidth forms with halfwidth 
+   place = 1
+   If InStr(place, sField, "&#xFF") Then
+      Do While InStr(place, sField, "&#xFF")
+         place = InStr(place, sField, "&#xFF")
+         code = Val("&H" & Mid(sField, place + 5, 2))
+         If code > &H00 And code < &H5F Then
+            sField = Mid(sField, 1, place-1) & "&#x00" & Hex(code + &H20) & ";" & Mid(sField, place+8)
+         End If
+      Loop
+   End If
+
+   'Load individual characters into an array.  Character entities, which 
+   'are strings beginning with &#x, are treated as single characters.
+   i = 1
+   Do While i <= Len(sField)
+      ReDim Preserve arrChars(UBound(arrChars) + 1)
+      If Mid(sField, i, 3) = "&#x" Then
+         place = InStr(i, sField, ";")
+         sBCR = Mid(sField, i, (place - i) + 1)
+         If InStr(2, sBCR, "&#x") Then
+           k = 1
+           Do While k <= Len(sBCR)
+             If k > 1 Then ReDim Preserve arrChars(UBound(arrChars) + 1)
+             place2 = InStr(k, sBCR, ";")
+             sSingleBCR = Mid(sBCR, k, (place2 - k) + 1)
+             arrChars(UBound(arrChars)) = sSingleBCR
+             k = place2
+             k = k + 1
+           Loop
+         Else
+           arrChars(UBound(arrChars)) = sBCR
+         End If
+         i = place
+      Else
+         arrChars(UBound(arrChars)) = Mid(sField, i, 1)
+      End If
+      i = i + 1
+   Loop
+
+
+   'Transliterate any Chinese characters
+   previ = 0
+   i = 1  
+   Do While i <= UBound(arrChars)
+      inc = 1
+      If InStr(arrChars(i), "&#x") Then
+         nHex = GetHexCode(arrChars(i))
+         Select Case nHex
+           Case &H2F00& To &H9FFF&,&HD800& To &HDFFF&,&HF900& To &HFAFF& 
+              TransliterateChinese(i)
+              If Left(arrChars(i), 1) Like "[0-9]" Then
+                 'Add an extra space if string does not end with entity
+                 If Not(Right(arrChars(i),1) Like "[ ;]") Then
+                    arrChars(i) = arrChars(i) & " "
+                 End If
+ 'Add an extra space to previous character if it ends with
+       'alphanumeric text or an end parenthesis or current character
+       'start parenthesis.
+                 If Right(arrChars(previ),1) Like "[0-9A-Za-z)]" Or _
+                 Right(arrChars(previ),1) = "]" Or _
+                 Left(arrChars(i),1) = "(" Or _
+                 Left(arrChars(i),1) = "[" Then
+                    arrChars(previ) = arrChars(previ) & " "
+                 End If    
+ 
+                 'The prefix is the result is the number of characters consumed
+       'The result is all in arrChars(i), so the array entries for the
+       'other consumed characters need to be blanked out.
+       nLen = Val(Left(arrChars(i),1))
+                 For j = i+1 To i+nLen-1
+                   arrChars(j) = ""
+                 Next j
+                 arrChars(i) = Mid(arrChars(i),2)
+                 inc = nLen
+              End If
+         End Select
+      End If
+     'Remove trailing space from previous character if current character does not begin with an alphanumeric or parenthesis
+      If i > 0 And Len(arrChars(previ)) > 1 And _
+         Right(arrChars(previ),1) = " " And _ 
+         (Left(arrChars(i),1) Like "[!A-Za-z0-9(]" And Left(arrChars(i),1) <> "[") Then      
+         arrChars(previ) = Left(arrChars(previ), Len(arrChars(previ)) - 1)
+      End If
+      previ = i
+      i = i + inc      
+   Loop
+   
+   'Handle numbers
+   ReDim arrNums(UBound(arrChars))
+   ConvertNumbers(Left(NewField,3))
+   ParseNumbers
+  
+   'Create a single string out of array entries
+   For i = 1 to UBound(arrChars)
+      NewField = NewField & arrChars(i)
+   Next i
+   
+
+
+   'Add a space after the umlaut character
+   NewField = ReplaceAll(NewField, "&#x0308;", "&#x0308; ")
+   NewField = Trim(ReplaceAll(" " & NewField & " ", " lue ", " lu&#x0308;e "))
+   NewField = Trim(ReplaceAll(" " & NewField & " ", " nue ", " nu&#x0308;e "))
+   'Remove double spaces
+   NewField = Mid(NewField, 1, 5) & ReplaceAll(Mid(NewField,6), "  ", " ")
+
+   
+   'Capitalize first character of field (if not originally Latin text)
+   
+   i = 6
+   i2 = 6
+   Do Until ((Mid(NewField, i, 1) Like "[A-Za-z0-9]") Or i > Len(NewField))
+     i = i + 1
+     i2 = i2 + 1
+   Loop
+   If Mid(NewField, i, 1) Like "[a-z]" And Mid(origField, i2, 1) Like "[!a-z]" Then
+      Mid(NewField, i, 1) = UCase(Mid(NewField, i, 1))
+   End If
+
+   'Capitalize first character of each subfield (if not originally Latin text)
+   'Dont capitalize 245b if preceded by colon or 245h
+   i = 6
+   i2 = 6
+   Do While InStr(i, NewField, "&#x01C2;")
+     i = InStr(i, NewField, "&#x01C2;") + 9
+     i2 = InStr(i2, origField, "&#x01C2;") + 9
+     If Not(Left(NewField,3) = "245" And (Mid(NewField,i-1,1) = "h" Or (Mid(NewField,i-1,1) = "b" And (Mid(NewField,i-10,1) = ":" Or Mid(NewField,i-11,1) = ":")))) Then 
+   Do Until ((Mid(NewField, i, 1) Like "[A-Za-z0-9]") Or i > Len(NewField))
+     i = i + 1
+     i2 = i2 + 1
+   Loop
+   If i <= Len(NewField) Then
+      If (Mid(NewField, i, 1) Like "[a-z]" And Mid(origField,i2,1) Like "[!A-Za-z]") Then
+         If Mid(NewField, i-1, 1) <> "#" Then 'part of numeric entity
+       Mid(NewField, i, 1) = UCase(Mid(NewField, i, 1))
+         Else
+      i = i + 5
+      i2 = i2 + 5
+         End If
+      End If
+        End If
+     End If
+     i = i + 1
+     i2 = i2 + 1
+   Loop
+
+
+
+  'Use proper name format for subfield r of any field
+   i = 5
+   i2 = 5
+   Do While InStr(i, NewField, "&#x01C2;r")
+     i = InStr(i, NewField, "&#x01C2;r") + 10
+     i2 = InStr(i2, origField, "&#x01C2;r") + 10
+     Do Until ((Mid(NewField, i, 1) Like "[A-Za-z]") Or i > Len(NewField))
+        i = i + 1
+   i2 = i2 + 1
+     Loop
+     If i <= Len(NewField) And Mid(origField, i2, 1) Like "[!A-Za-z]" Then
+        j = InStr(i, NewField, " ")
+        If Mid(NewField,j+1,1) Like "[A-Za-z]" Then
+          Mid(NewField,j+1,1) = UCase(Mid(NewField,j+1,1))
+          k = InStr(j+1, NewField, " ")
+          If Mid(NewField,k+1,1) Like "[A-Za-z]" Then
+        separator = ""
+        If(Mid(NewField,k+1,1) Like "[aeo]") Then
+           separator = chr(39)
+        End If
+             NewField = Mid(NewField,1,k-1) & separator & Mid(NewField, k+1)
+          End If
+        End If
+     End If
+     i = i + 1
+   Loop
+
+   'Use proper name format for subfield a of some other fields
+   If Left(NewField, 4) Like "[1678]001" Then
+       i = 5
+       i2 = 5
+       If InStr(i, NewField, "&#x01C2;a") Then
+          i = InStr(i, NewField, "&#x01C2;a") + 9
+     i2 = InStr(i2, origField, "&#x01C2;a") + 9
+       End If
+     Do Until ((Mid(NewField, i, 1) Like "[A-Za-z]") Or i > Len(NewField))
+        i = i + 1
+   i2 = i2 + 1
+     Loop
+     If i <= Len(NewField) And Mid(origField, i2, 1) Like "[!A-Za-z]" Then
+        j = InStr(i, NewField, " ")
+        If Mid(NewField,j+1,1) Like "[A-Za-z]" Then
+          Mid(NewField,j+1,1) = UCase(Mid(NewField,j+1,1))
+          NewField = Mid(NewField, 1, j-1) & "," & Mid(NewField, j)
+          k = InStr(j+2, NewField, " ")
+          If Mid(NewField,k+1,1) Like "[A-Za-z]" Then
+             separator = ""
+        If(Mid(NewField,k+1,1) Like "[aeo]") Then
+           separator = chr(39)
+        End If
+             NewField = Mid(NewField,1,k-1) & separator & Mid(NewField, k+1)             
+          End If
+        End If
+     End If
+   End If
+
+   'Change Angle Quotes to regular quotes
+   inQuote = 0
+   For i = 6 To Len(NewField) 
+      extraSpace = ""
+      quoteChar = chr(34)
+      If(inQuote = 1) Then
+         quoteChar = chr(39)
+      End If
+      
+      If(Mid(NewField,i,1) = chr(34)) Then
+         If(inQuote = 1) Then
+            inQuote = 0
+            If i < Len(NewField) And Mid(NewField,i+1,1) <> " " Then
+               NewField = Left(NewField,i) & " " & Mid(NewField,i+1)
+            End If
+         Else
+            inQuote = 1
+         End If
+      ElseIf(Mid(NewField,i,8) Like "&[#]x300[ACE];") Then     
+         If(i > 6 And Mid(NewField,i-1,1) <> " ") Then
+            extraSpace = " "
+         End If
+         If(Mid(NewField,i+8,1) Like "[a-z]") Then
+            Mid(NewField,i+8,1) = UCase(Mid(NewField,i+8,1))
+         End If
+         NewField = Mid(NewField,1,i-1) & extraSpace & quoteChar & Mid(NewField,i+8)
+         i = i + Len(extraSpace)
+      ElseIf(Mid(NewField,i,8) Like "&[#]x300[BDF];") Then   
+         If(i < Len(NewField)-8 And Mid(NewField,i+8,1) <> " ") Then
+            extraSpace = " "
+         End If
+         NewField = Mid(NewField,1,i-1) & quoteChar & extraSpace & Mid(NewField, i+8)
+         i = i + Len(extraSpace)
+      End If   
+   Next i
+
+   'Converts a sequence of space-delimited single-digit numbers to a single number
+   i = 6
+   'temporarily pad with spaces to simplify logic
+   NewField = Left(NewField,5) & " " & Mid(NewField,6) & " " 
+   Do While(i <= Len(NewField))
+      If Mid(NewField,i,5) Like " # # " Then
+         NewField = Left(NewField, i+1) & Mid(NewField,i+3)
+         Do While Mid(NewField,i+4,2) Like "# "
+            NewField = Left(NewField,i+2) & Mid(NewField,i+4)
+            i = i + 1
+         Loop
+      End If
+      i = i + 1
+   Loop
+   NewField = Left(NewField,5) & Mid(NewField,7,Len(NewField)-7)
+
+
+   'For fields 600 - 651, change second indicator from 4 to 0
+   fieldNum = Val(Left(NewField,3))
+   If(fieldNum >= 600 And fieldNum <= 651 And Mid(NewField,5,1) = "4") Then
+      Mid(NewField,5,1) = "0"
+   End If
+
+   errors = ValidateField(NewField)
+   If Len(errors) > 0 Then
+      MsgBox(errors)
+   End If
+   
+   'Restore EOP characters to tag and indicator fields
+   i = 5
+   Do While(i > 0)
+      If(Mid(NewField,i,1) = ".") Then
+         NewField = Left(NewField,i-1) & "&#x220E;" & Mid(NewField,i+1)
+      End If
+      i = i - 1
+   Loop
+   
+
+   bool = CS.AddFieldLine(CS.CursorRow + 1, NewField)
+   CS.CursorRow = CS.CursorRow -1
+   CS.SendKeys "", -1
+   CS.SendKeys "%(ekl)", -1
+
+End Sub
+
+'##############################################################################
+'# ConvertNumbers: Determines which characters need to be converted to numbers 
+'# and copies their numerical values to the 'arrNums' array
+
+
+Function ConvertNumbers(sField As String)
+   convertNField = 0
+   inNField = 0
+   ordinal = 0
+   convert = 0
+   sDateFormat = ""
+   sYear = ""
+   prevDigitPos = -2
+   
+   ReDim arrDate(UBound(arrChars)) As String
+   flushDateArray = 0   
+   
+   'For these fields, convert any number in subfield 'n'
+   If(sField = "245" or sField = "830") Then
+      convertNField = 1
+   End If
+  
+   For i = 0 to UBound(arrChars)
+      sChr = arrChars(i)
+      'Convert any number after the ordinal marker 
+      If Left(sChr,3) Like "[Dd]i[#]" Then
+         ordinal = 1
+         arrChars(i) = Left(sChr,2) & Mid(sChr, 4)
+      ElseIf Left(sChr,5) Like "[Nn]ian[#]" And InStr(1,sChr,"20") = 0  Then
+         ordinal = 0
+         arrChars(i) = Left(sChr,4) & Mid(sChr, 6)
+         sDateFormat = sDateFormat & "Y"
+         arrDate(i) = "Y"
+      ElseIf Left(sChr,4) Like "[Yy]ue[#]" Then
+         ordinal = 0
+         arrChars(i) = Left(sChr,3) & Mid(sChr, 5)
+         sDateFormat = sDateFormat & "M"
+         arrDate(i) = "M"
+      ElseIf Left(sChr,3) Like "[Rr]i[#]" Then
+         ordinal = 0
+         arrChars(i) = Left(sChr,2) & Mid(sChr, 4)
+         sDateFormat = sDateFormat & "D"
+         arrDate(i) = "D"
+      ElseIf Left(sChr,4) Like "[Zz]hi[#]" Then
+         arrChars(i) = Left(sChr, 3) & Mid(sChr, 5)
+      ElseIf Left(sChr,3) Like "[Jj]i[#]" Then
+         arrChars(i) = Left(sChr, 2) & Mid(sChr, 4)
+      ElseIf Left(sChr,8) = "&#x01C2;" And i < UBound(arrChars) And convertNField = 1 Then
+         numChars = 0
+         If Left(arrChars(i+1),1) = "n" Then
+            inNField = 1
+         Else
+            inNField = 0
+         End If
+      ElseIf sChr Like "[A-Za-z]*[#]#*" Then
+         pos = InStr(1,sChr, "#")
+         arrChars(i) = Mid(sChr,1,pos-1)
+         If(Right(sChr,1) = " ") Then
+            arrChars(i) = arrChars(i) & " "
+         End If         
+         sNum = Mid(sChr,pos+1)
+         If(Right(sNum,1) = " ") Then
+            sNum = Left(sNum,Len(sNum)-1)
+         End If
+         arrDate(i) = sNum
+    'If there are 4 consecutive digits, treat them
+    'as a 4-digit year and remove the spaces in between
+         If Len(sNum) = 1 Then
+            If prevDigitPos = i-1 Then
+               sYear = sYear & sNum
+               If Len(sYear) = 4 then
+                  arrNums(i-3) = Mid(sYear,1,1) & " "
+                  arrNums(i-2) = Mid(sYear,2,1) & " "
+                  arrNums(i-1) = Mid(sYear,3,1) & " "
+                  arrNums(i) = Mid(sYear,4,1)
+                  If(Right(sChr,1) = " ") Then
+                     arrNums(i) = arrNums(i) & " "
+                  End If
+                  sYear = ""
+               End If
+            Else
+               sYear = sNum
+            End If
+            prevDigitPos = i
+         End If
+
+         If convert = 1 Then
+            arrNums(i) = sNum
+            arrDate(i) = ""
+            If Right(sChr,1) = " " Then
+               arrNums(i) = sNum & " "
+            End If
+         End if
+      Else 
+         flushDateArray = 1
+         If(Left(sChr,1) Like "[A-Za-z]") Then
+            ordinal = 0
+         End If
+      End If
+      If i = UBound(arrNums) then
+         flushDateArray = 1
+      End If
+               
+      If ordinal Or inNField Then
+         convert = 1
+      Else
+         convert = 0
+      End If
+            
+      targetDate = ""
+      dateSoFar = ""
+      If flushDateArray Then
+         If(InStr(1, sDateFormat, "YM") Or InStr(1, sDateFormat, "MD")) Then
+            For j = 1 to i
+              If targetDate = "" Then
+                 If Len(sDateFormat) >= 4 And Left(sDateFormat, 4) = "YMDD" Then
+                   targetDate = "YMDD"
+                 ElseIf Len(sDateFormat) >= 3 And Left(sDateFormat, 3) = "YMD" Then
+                   targetDate = "YMD"
+                 ElseIf Len(sDateFormat) >= 3 And Left(sDateFormat, 3) = "YMM" Then
+                   targetDate = "YMM"
+                 ElseIf Len(sDateFormat) >= 2 And Left(sDateFormat, 2) = "YM" Then
+                   targetDate = "YM"
+                 ElseIf Len(sDateFormat) >= 3 And Left(sDateFormat, 3) = "MDD" Then
+                   targetDate = "MDD"
+                 ElseIf Len(sDateFormat) >= 2 And Left(sDateFormat, 2) = "MD" Then
+                   targetDate = "MD"
+                 End If
+              End If
+              If targetDate <> "" Then
+                If Not(arrDate(j) Like "[YMD]") Then
+                   If arrDate(j) <> "" Then
+                     arrNums(j) = arrDate(j)
+                   ElseIf arrNums(j-1) <> "" And arrNums(j-1) <> " " Then
+                     arrNums(j-1) = arrNums(j-1) & " " 
+                   End If
+                Else
+                   arrNums(j-1) = arrNums(j-1) & " "
+                   dateSoFar = dateSoFar & arrDate(j)
+                   sDateFormat = Mid(sDateFormat,2)
+                End If
+              ElseIf arrDate(j) Like "[YMD]" Then
+                   sDateFormat = Mid(sDateFormat, 2)                
+              End If
+              arrDate(j) = ""
+              If targetDate = "" Or targetDate = dateSoFar Then
+                targetDate = ""
+                dateSoFar = ""
+              End If
+           Next j 
+         End If
+         sDateFormat = ""  
+         For j = 1 to i
+           arrDate(j) = ""
+         Next j
+         flushDateArray = 0  
+      End If     
+   Next i
+End Function
+
+'##############################################################################
+'# ParseNumbers: Go though the arrNums array and convert to numbers, copying 
+'# the results back to arrChars 
+
+Function ParseNumbers()
+   numChars = 0
+   places = 9
+   'The number that has been calculated so far
+   'Note: because the number may exceed the maximum integer size, 
+   '  arrPlaces(8) must be checked separately in comparisons
+   total = 0
+   convertAndClear = 0
+
+   'This array keeps track of the current number, by storing
+   'a digit for the 1s, 10s, 100s, etc. place
+   ReDim arrPlaces(places)
+
+   'This first loop goes through arrNums and calculates the numbers represented,
+   'keeping a running total in 'total', and keeping track of the value of each
+   'place of the number in arrPlaces.  When the end of a number is reached, the
+   'convertAndClear flag is set, and the number is copied to arrChars, and the 
+   'other characters from arrNums that have been consumed are cleared.
+
+   For i = 0 to UBound(arrNums)
+      mod10 = total Mod 10
+      mod100 = total Mod 100
+      mod1000 = total Mod 1000
+      mod10K = total Mod 10000
+      
+      sNum = arrNums(i)
+      If Not(sNum = "") Then
+         nNum = Val(sNum)
+         If nNum < 10 Then 
+            If total < 10  And arrPlaces(8) = 0 Then 
+               numChars = 1
+          arrPlaces(0) = nNum  
+            ElseIf (total >= 10 Or arrPlaces(8) > 0) And mod10 = 0 Then
+               numChars = numChars + 1
+          arrPlaces(0) = nNum  
+            ElseIf (total >= 10 Or arrPlaces(8) > 0) And mod10 > 0 Then
+          convertAndClear = 1
+            End If            
+         ElseIf nNum = 10 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 1
+               numChars = numChars + 1
+            ElseIf mod100 > 0 And mod100 < 10 Then
+               arrPlaces(1) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod100 >= 10 Then
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 20 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 2
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 30 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 3
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 40 Then
+            If mod100 = 0 Then
+               arrPlaces(1) = 4
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            Else
+               convertAndClear = 1
+            End If
+         ElseIf nNum = 100 Then
+            If mod1000 = 0 Then
+               arrPlaces(2) = 1
+               numChars = numChars + 1
+            ElseIf mod1000 > 0 and mod1000 < 10 Then
+               arrPlaces(2) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod1000 >= 10 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 1000 Then
+            If mod10K = 0 Then
+               arrPlaces(3) = 1
+               numChars = numChars + 1
+            ElseIf mod10K > 0 And mod10K < 10 Then
+               arrPlaces(3) = arrPlaces(0)
+               arrPlaces(0) = 0
+               numChars = numChars + 1
+            ElseIf mod10K >= 10 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 10000 Then
+            If total = 0 Then
+               arrPlaces(4) = 1
+               numChars = numChars + 1
+            ElseIf total > 0 and arrPlaces(4) = 0 Then
+               arrPlaces(4) = total
+               For j = 0 To 3
+                  arrPlaces(j) = 0
+               Next j
+               numChars = numChars + 1
+            ElseIf arrPlaces(4) > 0 Then
+          convertAndClear = 1
+            End If
+         ElseIf nNum = 100000000 Then
+            If total = 0 Then
+               arrPlaces(8) = 1
+               numChars = numChars + 1
+            ElseIf total > 0 and arrPlaces(8) = 0 Then
+               arrPlaces(8) = total
+          For j = 0 To 4
+         arrPlaces(j) = 0
+          Next j
+               numChars = numChars + 1
+            ElseIf arrPlaces(8) > 0 Then
+          convertAndClear = 1
+            End If            
+         End If
+       Else
+         nNum = 0
+         
+         If numChars > 0 And total < 10 And arrPlaces(8) = 0 Then            
+            numChars = 0
+            ReDim arrPlaces(places)
+         ElseIf total >= 10 Or arrPlaces(8) > 0 Then
+            convertAndClear = 1
+         End If
+       End If 
+       
+       If (convertAndClear = 1) Then
+          arrNums(i-numChars) = total
+          If(Right(arrChars(i-1),1) = " ") Then
+             arrNums(i-numChars) = total & " "
+          End If
+          For j = i-numChars+1 To i-1 
+             arrNums(j) = "_"
+          Next j    
+          If arrPlaces(8) > 0 Then
+            t = arrNums(i-numChars) + 100000000
+            t = arrPlaces(8) & t
+            tlen = Len(t)
+            t = Left(t,tlen-9) & Right(t,8)
+            arrNums(i-numChars) = t
+          End If
+          ReDim arrPlaces(places)
+     If nNum < 10 Then
+        arrPlaces(0) = nNum
+     End If
+     For j = 1 to 8
+        If(nNum = 10^j) Then
+      arrPlaces(j) = 1
+        End If
+          Next j
+     If(sNum = "") Then
+        numChars = 0
+          Else
+             numChars = 1
+       End If
+       convertAndClear = 0
+     End If
+
+       'Re-calculate total
+       total = 0     
+       For p = 0 to 7 
+         total = total + arrPlaces(p)*(10^p)
+       Next p  
+   Next i
+   
+   'After exiting the loop, do one final calculation
+   i = UBound(arrNums)
+   If (total >= 10 Or arrPlaces(8) > 0) And arrNums(i) <> "" Then
+      arrNums(i-numChars+1) = total
+      If(Right(arrChars(i),1) = " ") Then
+         arrNums(i-numChars+1) = total & " "
+      End If
+      For j = i-numChars+2 To i 
+         arrNums(j) = "_"
+      Next j
+      If arrPlaces(8) > 0 Then
+            t = arrNums(i-numChars+1) + 100000000
+            t = arrPlaces(8) & t
+            tlen = Len(t)
+            t = Left(t,tlen-9) & Right(t,8)
+            arrNums(i-numChars+1) = t
+      End If
+   End If
+   
+   'copy values over to arrChars
+   For i = 0 to UBound(arrNums)
+      If(arrNums(i) = "_") Then
+         arrChars(i) = ""
+      ElseIf(arrNums(i) <> "" And arrNums(i) <> " ") Then
+         arrChars(i) = arrNums(i)
+      End If    
+   Next i 
+End Function
+
+'##############################################################################
+'# ValidateField: Makes sure that all characters in the string are in the ANSEL
+'# character set.  Returns a list of characters that are not
+
+Function ValidateField(sStr As String) As String
+   nLen = Len(sStr)
+   sResult = ""
+   pos = 1
+   For i = 6 to nLen
+      If Mid(sStr,i,8) Like "&[#]x[0-9A-F][0-9A-F][0-9A-F][0-9A-F];" Then
+         sNum = Mid(sStr,i,8)
+         nNum = GetHexCode(sNum)
+         i = i + 7
+      Else
+         nNum = Asc(Mid(sStr,i,1))
+         sNum = Val(nNum)        
+      End If
+      If Not((nNum > 0 And nNum < &H00FF&) Or nNum = &H0110& Or nNum = &H0111& Or nNum = &H0131& Or nNum = &H0141& Or nNum = &H0142& Or nNum = &H0152& Or nNum = &H0153& Or nNum = &H0300& Or nNum = &H0301& Or nNum = &H0302& Or nNum = &H0303& Or nNum = &H0304& Or nNum = &H0306& Or nNum = &H0307& Or nNum = &H0308& Or nNum = &H0309& Or nNum = &H0310& Or nNum = &H0313& Or nNum = &H0315& Or nNum = &H0323& Or nNum = &H0324& Or nNum = &H0325& Or nNum = &H0326& Or nNum = &H0327& Or nNum = &H0328& Or nNum = &H0332& Or nNum = &H0333& Or nNum = &H2113& Or nNum = &H2117& Or nNum = &H00A1& Or nNum = &H00A3& Or nNum = &H00A9& Or nNum = &H00AE& Or nNum = &H00B0& Or nNum = &H00B1& Or nNum = &H00B7& Or nNum = &H00BF& Or nNum = &H00C6& Or nNum = &H00D8& Or nNum = &H00DE& Or nNum = &H00DF& Or nNum = &H00F0& Or nNum = &H00F8& Or nNum = &H00FE& Or nNum = &H01A0& Or nNum = &H01A1& Or nNum = &H01AF& Or nNum = &H01B0& Or nNum = &H02B9& Or nNum = &H02BA& Or nNum = &H02BB& Or nNum = &H02BC& Or nNum = &H030A& Or nNum = &H030B& Or nNum = &H030C& Or nNum = &H031C& Or nNum = &H032E& Or nNum = &H266D& Or nNum = &H266F& Or nNum = &HFE20& Or nNum = &HFE21& Or nNum = &HFE22& Or nNum = &HFE23& Or nNum = &H01C2&) Then
+         sResult = sResult & "Invalid character in result at position " & pos
+         sResult = sResult & ": x" & Hex(nNum) & chr(10)
+      End If
+      pos = pos + 1
+   Next i
+   ValidateField = sResult
+End Function
+
+'##############################################################################
+'# ReplaceAll: converts all instances of sFind to sReplace in sStr
+
+Function ReplaceAll(sStr As String, sFind As String, sReplace As String) As String
+   place = 1
+   If InStr(place, sStr, sFind) Then
+      Do While InStr(place, sStr, sFind)
+          place = InStr(place, sStr, sFind)
+          sStr = Left(sStr, place - 1) & sReplace & Mid(sStr, place + Len(sFind))
+          place = place + Len(sReplace)
+      Loop
+   End If
+   ReplaceAll = sStr
+End Function
+
+'##############################################################################
+'# IsChineseChar: checks whether a character is a Chinese Character
+
+Function IsChineseChar(sNCR) As Integer
+   If Len(sNCR) = 6 And ((Mid(sNCR, 1, 5) Like "&[#]x3[4-9A-F]") Or (Mid(sNCR, 1, 4) Like "&[#]x[4-9]") Or (Mid(sNCR, 1, 5) Like "&[#]xF[9A]")) Then
+      IsChineseChar = 1
+   Else
+      IsChineseChar = 0
+   End If
+End Function
+
+'##############################################################################
+'# GetHexCode: returns the hex code for a character
+
+Function GetHexCode(sChar As String) as Long
+   sHex = Mid(sChar, 4, 4)
+   nHex = Val("&H" & sHex & "&")
+   If nHex < 0 Then
+      nHex = nHex + &HFFFF& + 1
+   End If
+   GetHexCode = nHex 
+End Function
+
+
+'##############################################################################
+'# TransliterateChinese: main function for converting characters to pinyin.
+'# Takes an index to arrChars.  Determines which sub-function to delegate to.
+'# subfunctions may look ahead several characters in case the conversion
+'# requires special formatting or non-standard pronunciation.  If more than 
+'# one character is converted, the result is stored in arrChars(i) and any other 
+'# characters that were consumed are blanked out.
+
+Function TransliterateChinese(i As Integer) As String
+    nHex = GetHexCode(arrChars(i))
+    sHexFront = Mid(arrChars(i), 4, 2)
+    nHexFront = Val("&H" & sHexFront)
+    Select Case nHexFront
+    [Function Selection]
+    End Select
+End Function
+
+[Function Definitions]
