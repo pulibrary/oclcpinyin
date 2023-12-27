@@ -7,7 +7,7 @@ to Hanyu Pinyin, with certain catalog-record-specific formatting applied.
 
 [Download the macro](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk)
 
-[Download the "Extras" macro](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk)
+[Download the "Extras" macro](https://github.com/pulibrary/oclcpinyin/releases/latest/download/PinyinExtras.mbk)
 
 Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.edu/eastasian/addpinyin-plugin-marcedit), which can be used for batch processing of records outside of OCLC Connexion. 
 
