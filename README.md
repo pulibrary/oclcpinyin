@@ -16,10 +16,11 @@ Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.ed
 
 ## Sources
 The macro contains a dictionary of Chinese characters and phrases based on three sources:
-- The Unihan database, copyright 1991-2020, Unicode, Inc. Last updated 2020-02-18.
-- CC-CEDICT, copyright 2020, MDBG. Last updated 2021-04-21.
+- The ![Unihan database](http://unicode.org/charts/unihan.html), copyright 1991-2020, Unicode, Inc. Last updated 2020-02-18.
+- ![CC-CEDICT](http://www.mdbg.net/chindict/chindict.php?page=cedict), copyright 2020, MDBG. Last updated 2021-04-21.
 - User feedback.
 
+## Feedback
 To suggest new terms for the dictionary (or to provide general feedback), please go to the "Issues" tab at the top of this github page, and click the "New Issue" button. Alternatively, you can provide feedback using the form below. (Please select the option "Feedback regarding website or software tools".)
 
 https://library.princeton.edu/eastasian/contact 
@@ -77,4 +78,7 @@ https://library.princeton.edu/eastasian/contact
 6. To run the macro, click in the field you would like to convert, then activate the macro, using either the keyboard shortcut or toolbar button.
 7. To install the extra macros, repeat the steps above with the file PinyinExtras.mbk . This will create a macro book called "PinyinExtras" containing the macros "ProperName", "PersonalName", and "ConvertNumbers". A different toolbar button and/or keyboard shortcut should be created for each of these macros. (Alt+P, Alt+S, and Alt+N, respectively, may be good choices).
 8. **Note to users of OCLC Connexion 3.1**: The macro may initially produce an error message after upgrading to version 3.1. If this happens, go to "Tools > Macros > Convert to Version 3 Macro Format...". Then click the "Select MacroBook..." button, select "Pinyin.mbk", and click "Open". Finally, click the "Convert" button. This should resolve the issue.
+
+## Source Code
+The source code for the macros is provided in the "src" directory.  Note that the code for the main macro **"Pinyin.Hanzi2Pinyin"** is generated dynamically directly from the dictionary files.  The code for generating this macro is provided as well.  The README file in the src directory describes this process in more detail.
 
