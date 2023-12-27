@@ -28,8 +28,8 @@ into the OCLC Macro editor and saved.  This is how the macro is finally "compile
 - condenseDict.pl: Takes dict1.txt and makes sure there is only one entry per character,  and that the only multi-character entries are those that contain variant pronunciations of characters (dict1.txt).
 - formatCEdict.pl: Converts the CEDICT to a simple tab-delimited format (dict1.txt)
 - makePinyinDict.pl: Takes dict1.txt and generates a dictionary of one-character entries, sorted by Unicode codepoint.
-- VBSCRIPT.sh: Wrapper script for all steps of the code generation process.
 - vbdict.pl: takes dict3.txt and generates a dictionary, filling in the blanks in vbdictTemp.txt
 and generating the source code in vbdict.txt.
+- VBSCRIPT.sh: Wrapper script for all steps of the code generation process.  This is the only script that needs to be run directly.
 
 
