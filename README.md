@@ -65,7 +65,7 @@ https://library.princeton.edu/eastasian/contact
 - Personal names found outside the 100, 600, 700, or 800 fields will not be written with commas or special capitalization, and will not have the given name written as a single word.
 - An apostrophe is always placed between the syllables of a personal name if the second syllable begins with a vowel. The apostrophe must be removed manually if it is not desired in cases where there is no ambiguity.
 - The macro applies special formatting to many major geographic names, but the list is not comprehensive. Future versions of the macro may include additional names, based on user feedback. Please use our suggestion form to make any suggestions.
-- Though the macro is often able to determine the correct pronunciation for a character that has multiple pronunciations, it may not do so in all cases. Please use our suggestion form to let us know about any characters or phrases that are not Romanized correctly.
+- Though the macro is often able to determine the correct pronunciation for a character that has multiple pronunciations, it may not do so in all cases. Please let us know about any characters or phrases that are not Romanized correctly.
 - The "extra" macros can assist in making manual adjustments to numbers or proper names. Please see the section below for details. 
 
 ## Extra Macros for Manual Adjustments
