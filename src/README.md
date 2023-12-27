@@ -3,7 +3,7 @@
 OCLC Connexion Macros have the ability to access external files, but doing so slows down the macro 
 considerably, especially for large files.  To get around this, the macro essentially encloses
 the entire dictionary inside a large SWITCH statement.  Therefore, the source code of the macro
-must be generated automatically, using a text files as a starting point.  The scripts and files
+must be generated automatically, using text files as a starting point.  The scripts and files
 in this collection are designed to generate this code.  The code can then be copied and pasted
 into the OCLC Macro editor and saved.  This is how the macro is finally "compiled".
 
