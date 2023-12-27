@@ -18,7 +18,7 @@ into the OCLC Macro editor and saved.  This is how the macro is finally "compile
 - cedict_ts.u8.txt:  The CC-CEDICT source dictionary (http://www.mdbg.net/chindict/chindict.php?page=cedict).
 - Unihan_Readings.txt: The Unihan readings list (https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip)
 
-## Local dictionary files (maintained manually based on user feedback)
+## Local dictionary files (maintained manually based on user feedback):
 - additions.txt: List of multi-character terms manually added to the dictionary (besides geographic names and surnames)
 - names.txt: A file of Chinese surnames with more than one character.
 - places.txt: A file of geographic names that require special formatting or capitalization.
