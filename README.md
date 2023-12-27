@@ -14,6 +14,23 @@ Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.ed
 ## Demonstration video
 [![Demonstration video](https://img.youtube.com/vi/xi1LOWUzqU0/0.jpg)](https://youtu.be/xi1LOWUzqU0)
 
+## Installation
+
+1. Close OCLC Connexion Client if it is open.
+2. Download the file [Pinyin.mbk](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk). Save it in your OCLC Macro directory, which is usually "C:\Program Files\OCLC\Connexion\Program\Macros". If you have already installed a previous version of the file, simply replace it with the new one.
+3. Open OCLC Connexion Client. Open the "Tools" menu and select "Macros > Manage...". In the list of macro books, there should be one called "Pinyin" containing a macro "Hanzi2Pinyin". After confirming this, click "OK".
+4. To add the macro to the toolbar:
+  - Select "Tools > User Tools > Assign...". At the top of the screen, click "Macros". In the list box on the left side of the window, select "Pinyin!Hanzi2Pinyin".
+  - Under the "Select New User Tool" menu, select a tool that is not yet assigned to another function. Make note of the tool number, then click "Assign Tool", and then "OK".
+  - Select "Tools > Toolbar Editor...". Scroll down to "ToolsUserToolsX", where X is the tool number that you just assigned to the macro. Drag the icon to the desired location on the toolbar.
+5. To assign a keyboard shortcut:
+  - Select "Tools > Keymaps...". In the "Select Commands for Category" box at the top of the window, select "Macros". Double-click "Pinyin", then click "Hanzi2Pinyin".
+  - Click in "Press New Shortcut Key" and press the keyboard shortcut you would like to assign to this macro (Alt+R is a good choice, as it does not seem to conflict with any other shortcuts).
+  - Make sure that "Shortcut Key Assigned to:" is blank, then click "Assign" and then "OK". 
+6. To run the macro, click in the field you would like to convert, then activate the macro, using either the keyboard shortcut or toolbar button.
+7. To install the extra macros, repeat the steps above with the file PinyinExtras.mbk . This will create a macro book called "PinyinExtras" containing the macros "ProperName", "PersonalName", and "ConvertNumbers". A different toolbar button and/or keyboard shortcut should be created for each of these macros. (Alt+P, Alt+S, and Alt+N, respectively, may be good choices).
+8. **Note to users of OCLC Connexion 3.1**: The macro may initially produce an error message after upgrading to version 3.1. If this happens, go to "Tools > Macros > Convert to Version 3 Macro Format...". Then click the "Select MacroBook..." button, select "Pinyin.mbk", and click "Open". Finally, click the "Convert" button. This should resolve the issue.
+
 ## Sources
 The macro contains a dictionary of Chinese characters and phrases based on three sources:
 - The [Unihan database](http://unicode.org/charts/unihan.html), copyright 1991-2020, Unicode, Inc. Last updated 2020-02-18.
@@ -61,23 +78,6 @@ https://library.princeton.edu/eastasian/contact
   - The Chinese field must appear right above the Romanized field and have the same tag name and the same set of subfields.
   - The highlighted text must contain Arabic numerals only or pinyin text only, not a combination of the two. Punctuation should not be included in the selection.
   - The macro cannot be used to convert part of a number. For example, if "215" appears in the Romanized field, attempting to convert only the "15" produces an error message.
-
-## Installation Instructions
-
-1. Close OCLC Connexion Client if it is open.
-2. Download the file [Pinyin.mbk](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk). Save it in your OCLC Macro directory, which is usually "C:\Program Files\OCLC\Connexion\Program\Macros". If you have already installed a previous version of the file, simply replace it with the new one.
-3. Open OCLC Connexion Client. Open the "Tools" menu and select "Macros > Manage...". In the list of macro books, there should be one called "Pinyin" containing a macro "Hanzi2Pinyin". After confirming this, click "OK".
-4. To add the macro to the toolbar:
-  - Select "Tools > User Tools > Assign...". At the top of the screen, click "Macros". In the list box on the left side of the window, select "Pinyin!Hanzi2Pinyin".
-  - Under the "Select New User Tool" menu, select a tool that is not yet assigned to another function. Make note of the tool number, then click "Assign Tool", and then "OK".
-  - Select "Tools > Toolbar Editor...". Scroll down to "ToolsUserToolsX", where X is the tool number that you just assigned to the macro. Drag the icon to the desired location on the toolbar.
-5. To assign a keyboard shortcut:
-  - Select "Tools > Keymaps...". In the "Select Commands for Category" box at the top of the window, select "Macros". Double-click "Pinyin", then click "Hanzi2Pinyin".
-  - Click in "Press New Shortcut Key" and press the keyboard shortcut you would like to assign to this macro (Alt+R is a good choice, as it does not seem to conflict with any other shortcuts).
-  - Make sure that "Shortcut Key Assigned to:" is blank, then click "Assign" and then "OK". 
-6. To run the macro, click in the field you would like to convert, then activate the macro, using either the keyboard shortcut or toolbar button.
-7. To install the extra macros, repeat the steps above with the file PinyinExtras.mbk . This will create a macro book called "PinyinExtras" containing the macros "ProperName", "PersonalName", and "ConvertNumbers". A different toolbar button and/or keyboard shortcut should be created for each of these macros. (Alt+P, Alt+S, and Alt+N, respectively, may be good choices).
-8. **Note to users of OCLC Connexion 3.1**: The macro may initially produce an error message after upgrading to version 3.1. If this happens, go to "Tools > Macros > Convert to Version 3 Macro Format...". Then click the "Select MacroBook..." button, select "Pinyin.mbk", and click "Open". Finally, click the "Convert" button. This should resolve the issue.
 
 ## Source Code
 The source code for the macros is provided in the "src" directory.  Note that the code for the main macro **"Pinyin.Hanzi2Pinyin"** is generated dynamically directly from the dictionary files.  The code for generating this macro is provided as well.  The README file in the src directory describes this process in more detail.
