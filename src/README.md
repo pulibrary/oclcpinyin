@@ -1,6 +1,6 @@
 # OCLC Connexion Pinyin Converter Macro - Source files
 
-OCLC Macros have the ability to access external files, but doing so slows down the macro 
+OCLC Connexion Macros have the ability to access external files, but doing so slows down the macro 
 considerably, especially for large files.  To get around this, the macro essentially encloses
 the entire dictionary inside a large SWITCH statement.  Therefore, the source code of the macro
 must be generated automatically, using a text file as a starting point.  The scripts and files
