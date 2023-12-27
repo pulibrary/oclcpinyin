@@ -11,5 +11,8 @@ to Hanyu Pinyin, with certain catalog-record-specific formatting applied.
 
 Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.edu/eastasian/addpinyin-plugin-marcedit), which can be used for batch processing of records outside of OCLC Connexion. 
 
-[![Demonstration video](https://img.youtube.com/vi/xi1LOWUzqU0/default.jpg)](https://youtu.be/xi1LOWUzqU0)
+### Demonstration video
+[![Demonstration video](https://img.youtube.com/vi/xi1LOWUzqU0/0.jpg)](https://youtu.be/xi1LOWUzqU0)
+
+
 
