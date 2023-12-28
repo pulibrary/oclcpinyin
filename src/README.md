@@ -26,7 +26,7 @@ into the OCLC Macro editor and saved.  This is how the macro is finally "compile
 
 ## Scripts for generating source code
 - formatCEdict.pl: Converts the cedict_ts.u8.txt to a simple tab-delimited format (outputs dict1.txt)
-- makePinyinDict.pl: Takes dict1.txt and generates a dictionary of one-character entries, sorted by Unicode codepoint (outputs pinyin.txt)
+- makePinyinDict.pl: Takes dict1.txt and Unihan_Readings.txt and generates a dictionary of one-character entries, sorted by Unicode codepoint (outputs pinyin.txt)
 - condenseDict.pl: Combines dict1.txt and pinyin.txt and makes sure there is only one entry per character,  and that the only multi-character entries are those that contain variant pronunciations of characters (outputs dict2.txt).
 - vbdict.pl: Takes dict3.txt (which is compiled from dict2.txt and the other local dictionary files) and generates a dictionary in VB code, filling in the bracked sections in vbdictTemp.txt and generating the source code in vbdict.txt.
 - VBSCRIPT.sh: Wrapper script for all steps of the code generation process.  This is the only script that needs to be run directly.
