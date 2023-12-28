@@ -22,11 +22,11 @@ into the OCLC Macro editor and saved.  This is how the macro is finally "compile
 - additions.txt: List of multi-character terms manually added to the dictionary (besides geographic names and surnames)
 - names.txt: A file of Chinese surnames with more than one character.
 - places.txt: A file of geographic names that require special formatting or capitalization.
-- pinyin.txt: List of single-character terms manually added or revised in the dictionary.
+- pyadditions.txt: List of single-character terms manually added or revised in the dictionary.
 
 ## Scripts for generating source code
+- formatCEdict.pl: Converts the cedict_ts.u8.txt to a simple tab-delimited format (outputs dict1.txt)
 - condenseDict.pl: Takes dict1.txt and makes sure there is only one entry per character,  and that the only multi-character entries are those that contain variant pronunciations of characters (outputs dict2.txt).
-- formatCEdict.pl: Converts the CEDICT to a simple tab-delimited format (outputs dict1.txt)
 - makePinyinDict.pl: Takes dict1.txt and generates a dictionary of one-character entries, sorted by Unicode codepoint.
 - vbdict.pl: Takes dict3.txt (which is compiled from dict2.txt and the other local dictionary files) and generates a dictionary in VB code, filling in the bracked sections in vbdictTemp.txt and generating the source code in vbdict.txt.
 - VBSCRIPT.sh: Wrapper script for all steps of the code generation process.  This is the only script that needs to be run directly.
