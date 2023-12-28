@@ -9,6 +9,8 @@ into the OCLC Macro editor and saved.  This is how the macro is finally "compile
 
 Basically, the Unihan list is used as the source of single-character entries, and CC-CEDICT as the source of multi-character entries.  (Though entries from either list can be overridden by one of the manual dictionary files).  To keep the dictionary has small as possible, the scripts only includes a multi-character entry if the romanization is different than what you would get considering the characters individually (i.e. at least one character has a variant reading, or special spacing/capitlization needs to be used).
 
+The macro is written in OCLC Macro Language (OML), which is an extension of Softbridge Visual Basic 3.0.  
+
 ## Source code files
 - ConvertNumbers.txt: Source code for the "PinyinExtras.ConvertNumbers" macro.
 - PersonalName.txt: Source code for the "PinyinExtras.PersonalName" macro.
