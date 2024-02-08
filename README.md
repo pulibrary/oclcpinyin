@@ -17,7 +17,7 @@ Please also see the [AddPinyin Plugin for MarcEdit](https://github.com/pulibrary
 ## Installation/Usage
 
 1. Close OCLC Connexion Client if it is open.
-2. Download the file [Pinyin.mbk](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk). Save it in your OCLC Macro directory, which is usually "C:\Program Files\OCLC\Connexion\Program\Macros". If you have already installed a previous version of the file, simply replace it with the new one.
+2. Download the file [Pinyin.mbk](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk). Save it in your OCLC Macro directory, which is usually "C:\Program Files\OCLC\Connexion\Program\Macros" or "C:\Users[your user name]\AppData\Roaming\OCLC\Connex\Macros". If you have already installed a previous version of the file, simply replace it with the new one.
 3. Open OCLC Connexion Client. Open the "Tools" menu and select "Macros > Manage...". In the list of macro books, there should be one called "Pinyin" containing a macro "Hanzi2Pinyin". After confirming this, click "OK".
 4. **To add the macro to the toolbar:**
   - Select "Tools > User Tools > Assign...". At the top of the screen, click "Macros". In the list box on the left side of the window, select "Pinyin!Hanzi2Pinyin".
