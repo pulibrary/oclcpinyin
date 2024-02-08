@@ -9,12 +9,12 @@ to Hanyu Pinyin, with certain catalog-record-specific formatting applied.
 
 [Download the "Extras" macro](https://github.com/pulibrary/oclcpinyin/releases/latest/download/PinyinExtras.mbk)
 
-Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.edu/eastasian/addpinyin-plugin-marcedit), which can be used for batch processing of records outside of OCLC Connexion. 
+Please also see the [AddPinyin Plugin for MarcEdit](https://github.com/pulibrary/addpinyin-marcedit), which can be used for batch processing of records outside of OCLC Connexion. 
 
 ## Demonstration video
 [![Demonstration video](https://img.youtube.com/vi/xi1LOWUzqU0/0.jpg)](https://youtu.be/xi1LOWUzqU0)
 
-## Installation
+## Installation/Usage
 
 1. Close OCLC Connexion Client if it is open.
 2. Download the file [Pinyin.mbk](https://github.com/pulibrary/oclcpinyin/releases/latest/download/Pinyin.mbk). Save it in your OCLC Macro directory, which is usually "C:\Program Files\OCLC\Connexion\Program\Macros". If you have already installed a previous version of the file, simply replace it with the new one.
