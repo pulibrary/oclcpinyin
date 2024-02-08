@@ -5,12 +5,12 @@
 'Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
 ' http://creativecommons.org/licenses/by-sa/3.0/
 'Dictionary based on three sources:
-' - Unihan database: http://unicode.org/charts/unihan.html . Last updated 2020-02-18.
-' - CC-CEDICT: http://www.mdbg.net/chindict/chindict.php?page=cedict . Last Updated 2020-04-06.
-' - User feedback: https://library.princeton.edu/eastasian/oclcpinyin/pinyinform.php
+' - Unihan database: http://unicode.org/charts/unihan.html . Last updated 2023-07-15.
+' - CC-CEDICT: http://www.mdbg.net/chinese/dictionary?page=cedict . Last Updated 2024-02-08.
+' - User feedback: https://github.com/pulibrary/oclcpinyin/issues
 'Macro Created: 5 January 2011
-'Macro last modified: 21 April 2021
-'Macro version: 2.1.1
+'Macro last modified: 8 February 2024
+'Macro version: 2.1.2
 
 Declare Function IsChineseChar(sNCR) As Integer
 Declare Function GetHexCode(sChar As String) as Long
@@ -1912,7 +1912,12 @@ Declare Function TransliterateChineseD871(i As Integer) As String
 Declare Function TransliterateChineseD872(i As Integer) As String
 Declare Function TransliterateChineseD873(i As Integer) As String
 Declare Function TransliterateChineseD874(i As Integer) As String
+Declare Function TransliterateChineseD875(i As Integer) As String
+Declare Function TransliterateChineseD876(i As Integer) As String
+Declare Function TransliterateChineseD877(i As Integer) As String
+Declare Function TransliterateChineseD878(i As Integer) As String
 Declare Function TransliterateChineseD879(i As Integer) As String
+Declare Function TransliterateChineseD87A(i As Integer) As String
 Declare Function TransliterateChineseD87E(i As Integer) As String
 
 
@@ -1922,7 +1927,10 @@ Global arrNums()
 Sub Main
 
    Dim CS As Object
-   Set CS = CreateObject("Connex.Client")
+   On Error Resume Next
+   Set CS = GetObject( , "Connex.Client" )
+   On Error GoTo 0
+   If CS Is Nothing Then Set CS = CreateObject( "Connex.Client" )
    ReDim arrChars(0)
 
    bool = CS.GetFieldLineUnicode(CS.CursorRow, sField)
@@ -6936,8 +6944,18 @@ Case &HD873&
 	TransliterateChineseD873(i)
 Case &HD874&
 	TransliterateChineseD874(i)
+Case &HD875&
+	TransliterateChineseD875(i)
+Case &HD876&
+	TransliterateChineseD876(i)
+Case &HD877&
+	TransliterateChineseD877(i)
+Case &HD878&
+	TransliterateChineseD878(i)
 Case &HD879&
 	TransliterateChineseD879(i)
+Case &HD87A&
+	TransliterateChineseD87A(i)
 Case &HD87E&
 	TransliterateChineseD87E(i)
 End Select
@@ -11171,7 +11189,7 @@ Case &H3C6C&
 Case &H3C6D&
 	arrChars(i) = "1duan"
 Case &H3C6E&
-	arrChars(i) = "1kuai"
+	arrChars(i) = "1hui"
 Case &H3C6F&
 	arrChars(i) = "1ai"
 End Select
@@ -19521,7 +19539,7 @@ Case &H4C59&
 Case &H4C5A&
 	arrChars(i) = "1lu"
 Case &H4C5B&
-	arrChars(i) = "1huo"
+	arrChars(i) = "1xu"
 Case &H4C5C&
 	arrChars(i) = "1cuo"
 Case &H4C5D&
@@ -20193,7 +20211,7 @@ Case &H4D95&
 Case &H4D96&
 	arrChars(i) = "1jin"
 Case &H4D97&
-	arrChars(i) = "1ke"
+	arrChars(i) = "1qia"
 Case &H4D98&
 	arrChars(i) = "1li"
 Case &H4D99&
@@ -20256,6 +20274,8 @@ Case &H4DB3&
 	arrChars(i) = "1yue"
 Case &H4DB5&
 	arrChars(i) = "1chi"
+Case &H4DB8&
+	arrChars(i) = "1yao"
 End Select
 End Function
 Function TransliterateChinese4E0(i As Integer) As String
@@ -20280,6 +20300,12 @@ Case &H4E02&
 	arrChars(i) = "1kao"
 Case &H4E03&
 	arrChars(i) = "1qi#7"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5F8B&
+		arrChars(i) = "2qi lü"
+	End Select
+	End If
 Case &H4E04&
 	arrChars(i) = "1shang"
 Case &H4E05&
@@ -20597,6 +20623,8 @@ Case &H4E2D&
 			arrChars(i) = "3Zhongshan Shi"
 		End Select
 		End If
+	Case &H610F&
+		arrChars(i) = "2zhong - yi"
 	Case &H725F&
 		arrChars(i) = "2zhong mu"
 	Case &H7684&
@@ -21116,6 +21144,8 @@ Case &H4E7E&
 		arrChars(i) = "2gan er"
 	Case &H51B0&
 		arrChars(i) = "2gan bing"
+	Case &H54B3&
+		arrChars(i) = "2gan ke"
 	Case &H5609&
 		arrChars(i) = "2Qian Jia"
 	Case &H5614&
@@ -22929,6 +22959,12 @@ Case &H5071&
 	arrChars(i) = "1xun"
 Case &H5072&
 	arrChars(i) = "1cai"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5072&
+		arrChars(i) = "2si si"
+	End Select
+	End If
 Case &H5073&
 	arrChars(i) = "1duan"
 Case &H5074&
@@ -23499,14 +23535,10 @@ Case &H5149&
 	arrChars(i) = "1guang"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
-	Case &H7740&
-		arrChars(i) = "2guang zhe"
 	Case &H7DD2&
 		arrChars(i) = "2Guangxu"
 	Case &H7DD6&
 		arrChars(i) = "2Guangxu"
-	Case &H8457&
-		arrChars(i) = "2guang zhe"
 	End Select
 	End If
 Case &H514A&
@@ -23619,6 +23651,12 @@ Case &H5164&
 	arrChars(i) = "1huang"
 Case &H5165&
 	arrChars(i) = "1ru"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H884C&
+		arrChars(i) = "2ru hang"
+	End Select
+	End If
 Case &H5166&
 	arrChars(i) = "1wang"
 Case &H5167&
@@ -23694,6 +23732,8 @@ Case &H516C&
 		arrChars(i) = "2gong zai"
 	Case &H5408&
 		arrChars(i) = "2gong ge"
+	Case &H5A46&
+		arrChars(i) = "2gong - po"
 	Case &H5B59&
 		arrChars(i) = "2Gongsun"
 	Case &H5B6B&
@@ -24810,7 +24850,7 @@ Case &H5295&
 Case &H5296&
 	arrChars(i) = "1chan"
 Case &H5297&
-	arrChars(i) = "1jian"
+	arrChars(i) = "1zuan"
 Case &H5298&
 	arrChars(i) = "1mo"
 Case &H5299&
@@ -25822,8 +25862,12 @@ Case &H5361&
 	arrChars(i) = "1ka"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H58F3&
+		arrChars(i) = "2qia ke"
 	Case &H5B50&
 		arrChars(i) = "2qia zi"
+	Case &H6BBC&
+		arrChars(i) = "2qia ke"
 	Case &H76D8&
 		arrChars(i) = "2qia pan"
 	Case &H76E4&
@@ -26703,6 +26747,8 @@ Case &H5410&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H8543&
 		arrChars(i) = "2Tufan"
+	Case &H8840&
+		arrChars(i) = "2tu xie"
 	End Select
 	End If
 Case &H5411&
@@ -27077,6 +27123,12 @@ Case &H5472&
 	arrChars(i) = "1ci"
 Case &H5473&
 	arrChars(i) = "1wei"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H9182&
+		arrChars(i) = "2wei lin"
+	End Select
+	End If
 Case &H5474&
 	arrChars(i) = "1xu"
 Case &H5475&
@@ -27307,6 +27359,8 @@ Case &H54AF&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H5693&
 		arrChars(i) = "2ge cha"
+	Case &H8840&
+		arrChars(i) = "2ka xie"
 	End Select
 	End If
 End Select
@@ -27337,6 +27391,8 @@ Case &H54B3&
 		arrChars(i) = "2ke sou"
 	Case &H75F0&
 		arrChars(i) = "2ke tan"
+	Case &H8840&
+		arrChars(i) = "2ke xie"
 	End Select
 	End If
 Case &H54B4&
@@ -29097,6 +29153,10 @@ Case &H56E4&
 		arrChars(i) = "2tun ji"
 	Case &H7A4D&
 		arrChars(i) = "2tun ji"
+	Case &H8CA8&
+		arrChars(i) = "2tun huo"
+	Case &H8D27&
+		arrChars(i) = "2tun huo"
 	End Select
 	End If
 Case &H56E5&
@@ -30027,6 +30087,12 @@ Case &H5820&
 	arrChars(i) = "1hou"
 Case &H5821&
 	arrChars(i) = "1bao"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5B50&
+		arrChars(i) = "2bu zi"
+	End Select
+	End If
 Case &H5822&
 	arrChars(i) = "1bao"
 Case &H5823&
@@ -30599,6 +30665,8 @@ Case &H58F3&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H724C&
 		arrChars(i) = "2qiao pai"
+	Case &H83DC&
+		arrChars(i) = "2qiao cai"
 	Case &H8D28&
 		arrChars(i) = "2qiao zhi"
 	End Select
@@ -31226,6 +31294,8 @@ Case &H5973&
 	arrChars(i) = "1nu&#x0308;"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H6821&
+		arrChars(i) = "2nü xiao"
 	Case &H7D05&
 		arrChars(i) = "2nu&#x0308; gong"
 	Case &H7EA2&
@@ -33757,6 +33827,12 @@ Case &H5C6E&
 	arrChars(i) = "1che"
 Case &H5C6F&
 	arrChars(i) = "1tun"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H9085&
+		arrChars(i) = "2zhun zhan"
+	End Select
+	End If
 End Select
 End Function
 Function TransliterateChinese5C7(i As Integer) As String
@@ -34674,8 +34750,6 @@ Case &H5DDD&
 	arrChars(i) = "1chuan"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
-	Case &H828E&
-		arrChars(i) = "2chuan xiong"
 	Case &H85CF&
 		arrChars(i) = "2chuan zang"
 	End Select
@@ -35620,6 +35694,8 @@ Case &H5E72&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H4E48&
 		arrChars(i) = "2gan ma"
+	Case &H54B3&
+		arrChars(i) = "2gan ke"
 	Case &H54D5&
 		arrChars(i) = "2gan yue"
 	End Select
@@ -36932,6 +37008,12 @@ Case &H5F8A&
 	arrChars(i) = "1huai"
 Case &H5F8B&
 	arrChars(i) = "1lu&#x0308;"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H6240&
+		arrChars(i) = "2lü suo"
+	End Select
+	End If
 Case &H5F8C&
 	arrChars(i) = "1hou"
 Case &H5F8D&
@@ -38138,6 +38220,8 @@ Case &H611A&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H6C13&
 		arrChars(i) = "2yu meng"
+	Case &H9A03&
+		arrChars(i) = "2yu ai"
 	End Select
 	End If
 Case &H611B&
@@ -39730,12 +39814,6 @@ Case &H6308&
 	arrChars(i) = "1qie"
 Case &H6309&
 	arrChars(i) = "1an"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H8E7B&
-		arrChars(i) = "2an qiao"
-	End Select
-	End If
 Case &H630A&
 	arrChars(i) = "1nong"
 Case &H630B&
@@ -40243,6 +40321,8 @@ Case &H63BA&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H5047&
 		arrChars(i) = "2chan jia"
+	Case &H548C&
+		arrChars(i) = "2chan huo"
 	Case &H6C34&
 		arrChars(i) = "2chan shui"
 	End Select
@@ -40814,6 +40894,8 @@ Case &H647B&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H5047&
 		arrChars(i) = "2chan jia"
+	Case &H548C&
+		arrChars(i) = "2chan huo"
 	Case &H6C34&
 		arrChars(i) = "2chan shui"
 	End Select
@@ -41370,6 +41452,8 @@ Case &H653E&
 	arrChars(i) = "1fang"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H8840&
+		arrChars(i) = "2fang xie"
 	Case &H8FD8&
 		arrChars(i) = "2fang huan"
 	Case &H9084&
@@ -41609,6 +41693,12 @@ Case &H6598&
 	arrChars(i) = "1sheng"
 Case &H6599&
 	arrChars(i) = "1liao"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5EA6&
+		arrChars(i) = "2liao duo"
+	End Select
+	End If
 Case &H659A&
 	arrChars(i) = "1jia"
 Case &H659B&
@@ -43072,8 +43162,20 @@ Case &H672D&
 	arrChars(i) = "1zha"
 Case &H672E&
 	arrChars(i) = "1shu"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H8D64&
+		arrChars(i) = "2zhu chi"
+	End Select
+	End If
 Case &H672F&
 	arrChars(i) = "1shu"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H8D64&
+		arrChars(i) = "2zhu chi"
+	End Select
+	End If
 End Select
 End Function
 Function TransliterateChinese673(i As Integer) As String
@@ -46082,6 +46184,8 @@ Case &H6B27&
 		arrChars(i) = "2ou bo"
 	Case &H6D32&
 		arrChars(i) = "2Ouzhou"
+	Case &H7F8E&
+		arrChars(i) = "2ou - mei"
 	Case &H9633&
 		arrChars(i) = "2Ouyang"
 	End Select
@@ -46208,6 +46312,8 @@ Case &H6B50&
 		arrChars(i) = "2ou bo"
 	Case &H6D32&
 		arrChars(i) = "2Ouzhou"
+	Case &H7F8E&
+		arrChars(i) = "2ou - mei"
 	Case &H967D&
 		arrChars(i) = "2Ouyang"
 	End Select
@@ -46461,7 +46567,7 @@ Case &H6BA6&
 Case &H6BA7&
 	arrChars(i) = "1jiu"
 Case &H6BA8&
-	arrChars(i) = "1hui"
+	arrChars(i) = "1kui"
 Case &H6BA9&
 	arrChars(i) = "1cuan"
 Case &H6BAA&
@@ -46518,6 +46624,8 @@ Case &H6BBC&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H724C&
 		arrChars(i) = "2qiao pai"
+	Case &H83DC&
+		arrChars(i) = "2qiao cai"
 	Case &H8CEA&
 		arrChars(i) = "2qiao zhi"
 	End Select
@@ -47979,6 +48087,12 @@ Case &H6D3D&
 	arrChars(i) = "1qia"
 Case &H6D3E&
 	arrChars(i) = "1pai"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H53F8&
+		arrChars(i) = "2pa si"
+	End Select
+	End If
 Case &H6D3F&
 	arrChars(i) = "1wu"
 End Select
@@ -49014,10 +49128,6 @@ Case &H6E6E&
 		arrChars(i) = "2yan mo"
 	Case &H6CA1&
 		arrChars(i) = "2yan mo"
-	Case &H6EC5&
-		arrChars(i) = "2yin mie"
-	Case &H706D&
-		arrChars(i) = "2yin mie"
 	End Select
 	End If
 Case &H6E6F&
@@ -50717,6 +50827,12 @@ Case &H70AD&
 	arrChars(i) = "1tan"
 Case &H70AE&
 	arrChars(i) = "1pao"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H70D9&
+		arrChars(i) = "2pao luo"
+	End Select
+	End If
 Case &H70AF&
 	arrChars(i) = "1jiong"
 End Select
@@ -52059,62 +52175,7 @@ Case &H7279&
 		If UBound(arrChars) >= i+2 Then
 		Select Case GetHexCode(arrChars(i+2))
 		Case &H666E&
-			If UBound(arrChars) >= i+3 Then
-			Select Case GetHexCode(arrChars(i+3))
-			Case &H0020&
-				If UBound(arrChars) >= i+4 Then
-				Select Case GetHexCode(arrChars(i+4))
-				Case &H0020&
-					If UBound(arrChars) >= i+5 Then
-					Select Case GetHexCode(arrChars(i+5))
-					Case &H0020&
-						If UBound(arrChars) >= i+6 Then
-						Select Case GetHexCode(arrChars(i+6))
-						Case &H0054&
-							If UBound(arrChars) >= i+7 Then
-							Select Case GetHexCode(arrChars(i+7))
-							Case &H0065&
-								If UBound(arrChars) >= i+8 Then
-								Select Case GetHexCode(arrChars(i+8))
-								Case &H006C&
-									If UBound(arrChars) >= i+9 Then
-									Select Case GetHexCode(arrChars(i+9))
-									Case &H0061&
-										If UBound(arrChars) >= i+10 Then
-										Select Case GetHexCode(arrChars(i+10))
-										Case &H006E&
-											If UBound(arrChars) >= i+11 Then
-											Select Case GetHexCode(arrChars(i+11))
-											Case &H0067&
-												If UBound(arrChars) >= i+12 Then
-												Select Case GetHexCode(arrChars(i+12))
-												Case &H0070&
-													If UBound(arrChars) >= i+13 Then
-													Select Case GetHexCode(arrChars(i+13))
-													Case &H0075&
-														arrChars(i) = "14"
-													End Select
-													End If
-												End Select
-												End If
-											End Select
-											End If
-										End Select
-										End If
-									End Select
-									End If
-								End Select
-								End If
-							End Select
-							End If
-						End Select
-						End If
-					End Select
-					End If
-				End Select
-				End If
-			End Select
-			End If
+			arrChars(i) = "3Telangpu"
 		End Select
 		End If
 	Case &H8ABF&
@@ -54585,9 +54646,15 @@ Case &H75F1&
 Case &H75F2&
 	arrChars(i) = "1ma"
 Case &H75F3&
-	arrChars(i) = "1lin"
+	arrChars(i) = "1ma"
 Case &H75F4&
 	arrChars(i) = "1chi"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H9A03&
+		arrChars(i) = "2chi ai"
+	End Select
+	End If
 Case &H75F5&
 	arrChars(i) = "1ji"
 Case &H75F6&
@@ -55367,6 +55434,8 @@ Case &H76EE&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H7684&
 		arrChars(i) = "2mu di"
+	Case &H77A4&
+		arrChars(i) = "2mu run"
 	End Select
 	End If
 Case &H76EF&
@@ -55955,13 +56024,7 @@ Case &H77A2&
 Case &H77A3&
 	arrChars(i) = "1wan"
 Case &H77A4&
-	arrChars(i) = "1run"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H606F&
-		arrChars(i) = "2shun xi"
-	End Select
-	End If
+	arrChars(i) = "1shun"
 Case &H77A5&
 	arrChars(i) = "1pie"
 Case &H77A6&
@@ -56003,7 +56066,7 @@ Case &H77B5&
 Case &H77B6&
 	arrChars(i) = "1gui"
 Case &H77B7&
-	arrChars(i) = "1jian"
+	arrChars(i) = "1xian"
 Case &H77B8&
 	arrChars(i) = "1ye"
 Case &H77B9&
@@ -56242,7 +56305,7 @@ Case &H7807&
 Case &H7808&
 	arrChars(i) = "1e"
 Case &H7809&
-	arrChars(i) = "1huo"
+	arrChars(i) = "1hua"
 Case &H780A&
 	arrChars(i) = "1kang"
 Case &H780B&
@@ -56622,7 +56685,7 @@ Select Case GetHexCode(arrChars(i))
 Case &H78A0&
 	arrChars(i) = "1ding"
 Case &H78A1&
-	arrChars(i) = "1du"
+	arrChars(i) = "1zhou"
 Case &H78A2&
 	arrChars(i) = "1tuo"
 Case &H78A3&
@@ -58811,7 +58874,7 @@ Case &H7BE0&
 Case &H7BE1&
 	arrChars(i) = "1cuan"
 Case &H7BE2&
-	arrChars(i) = "1long"
+	arrChars(i) = "1gong"
 Case &H7BE3&
 	arrChars(i) = "1peng"
 Case &H7BE4&
@@ -59856,7 +59919,7 @@ Case &H7D51&
 Case &H7D52&
 	arrChars(i) = "1chou"
 Case &H7D53&
-	arrChars(i) = "1gua"
+	arrChars(i) = "1kua"
 Case &H7D54&
 	arrChars(i) = "1bai"
 Case &H7D55&
@@ -59945,12 +60008,6 @@ Case &H7D6D&
 	arrChars(i) = "1juan"
 Case &H7D6E&
 	arrChars(i) = "1xu"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H8052&
-		arrChars(i) = "2xu guo"
-	End Select
-	End If
 Case &H7D6F&
 	arrChars(i) = "1gai"
 End Select
@@ -60089,6 +60146,8 @@ Case &H7DA0&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H6797&
 		arrChars(i) = "2lu lin"
+	Case &H9DFA&
+		arrChars(i) = "2lü lu"
 	End Select
 	End If
 Case &H7DA1&
@@ -61111,6 +61170,8 @@ Case &H7EF0&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H53F7&
 		arrChars(i) = "2chuo hao"
+	Case &H540D&
+		arrChars(i) = "2chuo ming"
 	Case &H7EA6&
 		arrChars(i) = "2chuo yue"
 	End Select
@@ -61212,6 +61273,8 @@ Case &H7EFF&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H6797&
 		arrChars(i) = "2lu lin"
+	Case &H9E6D&
+		arrChars(i) = "2lü lu"
 	End Select
 	End If
 End Select
@@ -62182,15 +62245,7 @@ Case &H8050&
 Case &H8051&
 	arrChars(i) = "1tie"
 Case &H8052&
-	arrChars(i) = "1gua"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H566A&
-		arrChars(i) = "2guo zao"
-	Case &H8033&
-		arrChars(i) = "2guo er"
-	End Select
-	End If
+	arrChars(i) = "1guo"
 Case &H8053&
 	arrChars(i) = "1xu"
 Case &H8054&
@@ -63930,13 +63985,11 @@ Case &H828D&
 	End Select
 	End If
 Case &H828E&
-	arrChars(i) = "1qiong"
+	arrChars(i) = "1xiong"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
-	Case &H44D6&
-		arrChars(i) = "2xiong qiong"
-	Case &H85ED&
-		arrChars(i) = "2xiong qiong"
+	Case &H6797&
+		arrChars(i) = "2qiong lin"
 	End Select
 	End If
 Case &H828F&
@@ -64169,6 +64222,8 @@ Case &H82CD&
 	arrChars(i) = "1cang"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H52B2&
+		arrChars(i) = "2cang jing"
 	Case &H5C71&
 		If UBound(arrChars) >= i+2 Then
 		Select Case GetHexCode(arrChars(i+2))
@@ -65299,13 +65354,7 @@ Case &H83F7&
 Case &H83F8&
 	arrChars(i) = "1yan"
 Case &H83F9&
-	arrChars(i) = "1ju"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H91A2&
-		arrChars(i) = "2zu hai"
-	End Select
-	End If
+	arrChars(i) = "1zu"
 Case &H83FA&
 	arrChars(i) = "1jian"
 Case &H83FB&
@@ -65554,8 +65603,6 @@ Case &H843D&
 		arrChars(i) = "2la kong"
 	Case &H8272&
 		arrChars(i) = "2lao shai"
-	Case &H85C9&
-		arrChars(i) = "2luo jie"
 	End Select
 	End If
 Case &H843E&
@@ -65983,6 +66030,8 @@ Case &H84BC&
 	arrChars(i) = "1cang"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H52C1&
+		arrChars(i) = "2cang jing"
 	Case &H5C71&
 		If UBound(arrChars) >= i+2 Then
 		Select Case GetHexCode(arrChars(i+2))
@@ -67175,6 +67224,12 @@ Function TransliterateChinese865(i As Integer) As String
 Select Case GetHexCode(arrChars(i))
 Case &H8650&
 	arrChars(i) = "1nue"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5FC3&
+		arrChars(i) = "2nüe xin"
+	End Select
+	End If
 Case &H8651&
 	arrChars(i) = "1lu&#x0308;"
 Case &H8652&
@@ -67365,12 +67420,6 @@ Case &H869C&
 	arrChars(i) = "1ya"
 Case &H869D&
 	arrChars(i) = "1hao"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H8C49&
-		arrChars(i) = "2hao chi"
-	End Select
-	End If
 Case &H869E&
 	arrChars(i) = "1mu"
 Case &H869F&
@@ -68289,12 +68338,6 @@ Case &H8813&
 	arrChars(i) = "1meng"
 Case &H8814&
 	arrChars(i) = "1hao"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H8C49&
-		arrChars(i) = "2hao chi"
-	End Select
-	End If
 Case &H8815&
 	arrChars(i) = "1ru"
 Case &H8816&
@@ -68775,6 +68818,12 @@ Case &H88B6&
 	arrChars(i) = "1jiang"
 Case &H88B7&
 	arrChars(i) = "1jia"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H88A2&
+		arrChars(i) = "2qia pan"
+	End Select
+	End If
 Case &H88B8&
 	arrChars(i) = "1jian"
 Case &H88B9&
@@ -68799,6 +68848,12 @@ Case &H88C0&
 	arrChars(i) = "1yin"
 Case &H88C1&
 	arrChars(i) = "1cai"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5EA6&
+		arrChars(i) = "2cai duo"
+	End Select
+	End If
 Case &H88C2&
 	arrChars(i) = "1lie"
 Case &H88C3&
@@ -71331,6 +71386,8 @@ Case &H8C1C&
 		arrChars(i) = "2mi yang"
 	Case &H8BED&
 		arrChars(i) = "2mi yu"
+	Case &H9762&
+		arrChars(i) = "2mi mian"
 	Case &H9898&
 		arrChars(i) = "2mi ti"
 	End Select
@@ -71445,12 +71502,10 @@ Case &H8C46&
 	arrChars(i) = "1dou"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
-	Case &H4F49&
-		arrChars(i) = "2dou qia"
+	Case &H4E7E&
+		arrChars(i) = "2dou gan"
 	Case &H7680&
 		arrChars(i) = "2dou bi"
-	Case &H8C49&
-		arrChars(i) = "2dou chi"
 	End Select
 	End If
 Case &H8C47&
@@ -71458,13 +71513,7 @@ Case &H8C47&
 Case &H8C48&
 	arrChars(i) = "1qi"
 Case &H8C49&
-	arrChars(i) = "1shi"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H6CB9&
-		arrChars(i) = "2chi you"
-	End Select
-	End If
+	arrChars(i) = "1chi"
 Case &H8C4A&
 	arrChars(i) = "1li"
 Case &H8C4B&
@@ -72485,6 +72534,12 @@ Case &H8D73&
 	arrChars(i) = "1jiu"
 Case &H8D74&
 	arrChars(i) = "1fu"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H7F8E&
+		arrChars(i) = "2fu - mei"
+	End Select
+	End If
 Case &H8D75&
 	arrChars(i) = "1zhao"
 Case &H8D76&
@@ -73116,7 +73171,7 @@ Case &H8E79&
 Case &H8E7A&
 	arrChars(i) = "1qiao"
 Case &H8E7B&
-	arrChars(i) = "1jue"
+	arrChars(i) = "1qiao"
 Case &H8E7C&
 	arrChars(i) = "1pu"
 Case &H8E7D&
@@ -73934,6 +73989,10 @@ Case &H8F9F&
 	arrChars(i) = "1pi"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &H7A40&
+		arrChars(i) = "2bi gu"
+	Case &H8C37&
+		arrChars(i) = "2bi gu"
 	Case &H90AA&
 		arrChars(i) = "2bi xie"
 	Case &H96CD&
@@ -74340,6 +74399,12 @@ Case &H9008&
 	arrChars(i) = "1jiong"
 Case &H9009&
 	arrChars(i) = "1xuan"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H89D2&
+		arrChars(i) = "2xuan jue"
+	End Select
+	End If
 Case &H900A&
 	arrChars(i) = "1xun"
 Case &H900B&
@@ -74682,6 +74747,12 @@ Case &H9077&
 	arrChars(i) = "1qian"
 Case &H9078&
 	arrChars(i) = "1xuan"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H89D2&
+		arrChars(i) = "2xuan jue"
+	End Select
+	End If
 Case &H9079&
 	arrChars(i) = "1yu"
 Case &H907A&
@@ -75802,6 +75873,8 @@ Case &H91CD&
 		arrChars(i) = "2chong die"
 	Case &H5408&
 		arrChars(i) = "2chong he"
+	Case &H540D&
+		arrChars(i) = "2chong ming"
 	Case &H542F&
 		arrChars(i) = "2chong qi"
 	Case &H555F&
@@ -75954,6 +76027,10 @@ Case &H91CD&
 		arrChars(i) = "2chong jian"
 	Case &H83B7&
 		arrChars(i) = "2chong huo"
+	Case &H88C5&
+		arrChars(i) = "2chong zhuang"
+	Case &H88DD&
+		arrChars(i) = "2chong zhuang"
 	Case &H88FD&
 		arrChars(i) = "2chong zhi"
 	Case &H8907&
@@ -76449,7 +76526,7 @@ Case &H9266&
 Case &H9267&
 	arrChars(i) = "1mu"
 Case &H9268&
-	arrChars(i) = "1xi"
+	arrChars(i) = "1ni"
 Case &H9269&
 	arrChars(i) = "1xi"
 Case &H926A&
@@ -76879,7 +76956,7 @@ Case &H931C&
 Case &H931D&
 	arrChars(i) = "1zong"
 Case &H931E&
-	arrChars(i) = "1chun"
+	arrChars(i) = "1dui"
 Case &H931F&
 	arrChars(i) = "1tan"
 End Select
@@ -77187,7 +77264,7 @@ Case &H939B&
 Case &H939C&
 	arrChars(i) = "1pan"
 Case &H939D&
-	arrChars(i) = "1da"
+	arrChars(i) = "1sa"
 Case &H939E&
 	arrChars(i) = "1bi"
 Case &H939F&
@@ -77249,7 +77326,7 @@ Case &H93AE&
 	End Select
 	End If
 Case &H93AF&
-	arrChars(i) = "1lang"
+	arrChars(i) = "1luo"
 End Select
 End Function
 Function TransliterateChinese93B(i As Integer) As String
@@ -80138,6 +80215,12 @@ Case &H96C3&
 	arrChars(i) = "1qian"
 Case &H96C4&
 	arrChars(i) = "1xiong"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H5CD9&
+		arrChars(i) = "2xiong zhi"
+	End Select
+	End If
 Case &H96C5&
 	arrChars(i) = "1ya"
 	If UBound(arrChars) >= i+1 Then
@@ -82624,7 +82707,7 @@ Case &H9A01&
 Case &H9A02&
 	arrChars(i) = "1xing"
 Case &H9A03&
-	arrChars(i) = "1ai"
+	arrChars(i) = "1si"
 Case &H9A04&
 	arrChars(i) = "1lu"
 Case &H9A05&
@@ -82799,6 +82882,12 @@ Case &H9A4E&
 	arrChars(i) = "1lin"
 Case &H9A4F&
 	arrChars(i) = "1zhan"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H9A0E&
+		arrChars(i) = "2chan qi"
+	End Select
+	End If
 End Select
 End Function
 Function TransliterateChinese9A5(i As Integer) As String
@@ -82825,6 +82914,12 @@ Case &H9A56&
 	arrChars(i) = "1tie"
 Case &H9A57&
 	arrChars(i) = "1yan"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H8840&
+		arrChars(i) = "2yan xie"
+	End Select
+	End If
 Case &H9A58&
 	arrChars(i) = "1luo"
 Case &H9A59&
@@ -83058,6 +83153,12 @@ Case &H9A8B&
 	arrChars(i) = "1cheng"
 Case &H9A8C&
 	arrChars(i) = "1yan"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &H8840&
+		arrChars(i) = "2yan xie"
+	End Select
+	End If
 Case &H9A8D&
 	arrChars(i) = "1xing"
 Case &H9A8E&
@@ -83687,7 +83788,7 @@ Case &H9B84&
 Case &H9B85&
 	arrChars(i) = "1bi"
 Case &H9B86&
-	arrChars(i) = "1ci"
+	arrChars(i) = "1ji"
 Case &H9B87&
 	arrChars(i) = "1wei"
 Case &H9B88&
@@ -83763,13 +83864,7 @@ Case &H9BA6&
 Case &H9BA7&
 	arrChars(i) = "1ti"
 Case &H9BA8&
-	arrChars(i) = "1yi"
-	If UBound(arrChars) >= i+1 Then
-	Select Case GetHexCode(arrChars(i+1))
-	Case &H79D1&
-		arrChars(i) = "2qi ke"
-	End Select
-	End If
+	arrChars(i) = "1qi"
 Case &H9BA9&
 	arrChars(i) = "1bing"
 Case &H9BAA&
@@ -86478,7 +86573,7 @@ Case &H9FEB&
 Case &H9FEC&
 	arrChars(i) = "1tian"
 Case &H9FED&
-	arrChars(i) = "1ni"
+	arrChars(i) = "1xi"
 End Select
 End Function
 Function TransliterateChineseD840(i As Integer) As String
@@ -97890,7 +97985,7 @@ Case &HD853&
 	Case &HDC11&
 		arrChars(i) = "2pu"
 	Case &HDC19&
-		arrChars(i) = "2ke"
+		arrChars(i) = "2ge"
 	Case &HDC1A&
 		arrChars(i) = "2la"
 	Case &HDC1D&
@@ -115975,22 +116070,30 @@ Case &HD86A&
 	arrChars(i) = "1"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC33&
+		arrChars(i) = "2che"
 	Case &HDC48&
 		arrChars(i) = "2bai"
 	Case &HDC4F&
 		arrChars(i) = "2zhan"
 	Case &HDCAE&
 		arrChars(i) = "2luan"
+	Case &HDCDD&
+		arrChars(i) = "2zao"
 	Case &HDCFB&
 		arrChars(i) = "2lou"
 	Case &HDD17&
 		arrChars(i) = "2liao"
 	Case &HDDD8&
 		arrChars(i) = "2ju"
+	Case &HDE07&
+		arrChars(i) = "2tui"
 	Case &HDE0A&
 		arrChars(i) = "2song"
 	Case &HDE17&
 		arrChars(i) = "2jue"
+	Case &HDE27&
+		arrChars(i) = "2lun"
 	Case &HDE30&
 		arrChars(i) = "2qu"
 	Case &HDE36&
@@ -115999,6 +116102,8 @@ Case &HD86A&
 		arrChars(i) = "2yan"
 	Case &HDE9D&
 		arrChars(i) = "2yong"
+	Case &HDF8B&
+		arrChars(i) = "2xiao"
 	End Select
 	End If
 End Select
@@ -116009,12 +116114,22 @@ Case &HD86B&
 	arrChars(i) = "1"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC77&
+		arrChars(i) = "2bei"
+	Case &HDDFD&
+		arrChars(i) = "2zan"
 	Case &HDEB9&
 		arrChars(i) = "2nu"
 	Case &HDED0&
 		arrChars(i) = "2cong"
+	Case &HDF47&
+		arrChars(i) = "2ke"
+	Case &HDF94&
+		arrChars(i) = "2xu"
 	Case &HDFA2&
 		arrChars(i) = "2xian"
+	Case &HDFA6&
+		arrChars(i) = "2lu"
 	End Select
 	End If
 End Select
@@ -116033,6 +116148,14 @@ Case &HD86C&
 		arrChars(i) = "2su"
 	Case &HDCDC&
 		arrChars(i) = "2kou"
+	Case &HDD1B&
+		arrChars(i) = "2jin"
+	Case &HDD1F&
+		arrChars(i) = "2shi"
+	Case &HDD24&
+		arrChars(i) = "2da"
+	Case &HDD25&
+		arrChars(i) = "2li"
 	Case &HDD27&
 		arrChars(i) = "2yan"
 	Case &HDD28&
@@ -116045,6 +116168,10 @@ Case &HD86C&
 		arrChars(i) = "2wei"
 	Case &HDE30&
 		arrChars(i) = "2qia"
+	Case &HDE41&
+		arrChars(i) = "2ai"
+	Case &HDECC&
+		arrChars(i) = "2te"
 	Case &HDED0&
 		arrChars(i) = "2gong"
 	Case &HDF00&
@@ -116065,10 +116192,18 @@ Case &HD86C&
 		arrChars(i) = "2xi"
 	Case &HDF72&
 		arrChars(i) = "2xiao"
+	Case &HDF7B&
+		arrChars(i) = "2xi"
 	Case &HDF7D&
 		arrChars(i) = "2xuan"
+	Case &HDFAB&
+		arrChars(i) = "2dan"
+	Case &HDFAC&
+		arrChars(i) = "2gan"
 	Case &HDFCB&
 		arrChars(i) = "2jue"
+	Case &HDFD0&
+		arrChars(i) = "2zan"
 	End Select
 	End If
 End Select
@@ -116087,8 +116222,14 @@ Case &HD86D&
 		arrChars(i) = "2ling"
 	Case &HDC10&
 		arrChars(i) = "2ni"
+	Case &HDC11&
+		arrChars(i) = "2guan"
 	Case &HDC13&
 		arrChars(i) = "2rou"
+	Case &HDC16&
+		arrChars(i) = "2jiao"
+	Case &HDC18&
+		arrChars(i) = "2kan"
 	Case &HDC61&
 		arrChars(i) = "2meng"
 	Case &HDCB6&
@@ -116109,6 +116250,10 @@ Case &HD86D&
 		arrChars(i) = "2jue"
 	Case &HDD36&
 		arrChars(i) = "2nie"
+	Case &HDD83&
+		arrChars(i) = "2hui"
+	Case &HDD94&
+		arrChars(i) = "2bai"
 	Case &HDDAE&
 		arrChars(i) = "2yi"
 	Case &HDDAF&
@@ -116121,14 +116266,22 @@ Case &HD86D&
 		arrChars(i) = "2bu"
 	Case &HDDE7&
 		arrChars(i) = "2su"
+	Case &HDDE9&
+		arrChars(i) = "2luo"
+	Case &HDDEB&
+		arrChars(i) = "2hu"
 	Case &HDDEE&
 		arrChars(i) = "2huang"
+	Case &HDDF0&
+		arrChars(i) = "2dui"
 	Case &HDDF4&
 		arrChars(i) = "2zhan"
 	Case &HDE1C&
 		arrChars(i) = "2wen"
 	Case &HDE1D&
 		arrChars(i) = "2jue"
+	Case &HDE1E&
+		arrChars(i) = "2tuo"
 	Case &HDE23&
 		arrChars(i) = "2han"
 	Case &HDE24&
@@ -116143,6 +116296,8 @@ Case &HD86D&
 		arrChars(i) = "2yuan"
 	Case &HDE2C&
 		arrChars(i) = "2xi"
+	Case &HDE2D&
+		arrChars(i) = "2shuang"
 	Case &HDE88&
 		arrChars(i) = "2xu"
 	Case &HDE89&
@@ -116157,6 +116312,8 @@ Case &HD86D&
 		arrChars(i) = "2ci"
 	Case &HDE99&
 		arrChars(i) = "2pu"
+	Case &HDEA5&
+		arrChars(i) = "2xia"
 	Case &HDEAD&
 		arrChars(i) = "2lie"
 	Case &HDEDB&
@@ -116165,12 +116322,20 @@ Case &HD86D&
 		arrChars(i) = "2jue"
 	Case &HDEE2&
 		arrChars(i) = "2ning"
+	Case &HDEE3&
+		arrChars(i) = "2yu"
 	Case &HDEED&
 		arrChars(i) = "2kuang"
+	Case &HDEF3&
+		arrChars(i) = "2fu"
 	Case &HDEF6&
 		arrChars(i) = "2chi"
 	Case &HDEF8&
 		arrChars(i) = "2ti"
+	Case &HDF28&
+		arrChars(i) = "2ba"
+	Case &HDF2C&
+		arrChars(i) = "2ze"
 	Case &HDF37&
 		arrChars(i) = "2shou"
 	Case &HDF38&
@@ -116201,16 +116366,26 @@ Case &HD86E&
 		arrChars(i) = "2kui"
 	Case &HDC0A&
 		arrChars(i) = "2xuan"
+	Case &HDC12&
+		arrChars(i) = "2zhang"
 	Case &HDC1C&
 		arrChars(i) = "2ni"
 	Case &HDC25&
 		arrChars(i) = "2lou"
+	Case &HDC26&
+		arrChars(i) = "2suo"
 	Case &HDC51&
 		arrChars(i) = "2yin"
+	Case &HDC92&
+		arrChars(i) = "2long"
 	Case &HDCB8&
 		arrChars(i) = "2dan"
+	Case &HDDEF&
+		arrChars(i) = "2xie"
 	Case &HDEC7&
 		arrChars(i) = "2e"
+	Case &HDEE6&
+		arrChars(i) = "2dan"
 	Case &HDF5F&
 		arrChars(i) = "2ou"
 	Case &HDF62&
@@ -116231,8 +116406,14 @@ Case &HD86F&
 	arrChars(i) = "1"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC02&
+		arrChars(i) = "2duo"
 	Case &HDC1B&
 		arrChars(i) = "2xing"
+	Case &HDD52&
+		arrChars(i) = "2tui"
+	Case &HDD58&
+		arrChars(i) = "2bi"
 	Case &HDD77&
 		arrChars(i) = "2li"
 	Case &HDD87&
@@ -116245,6 +116426,8 @@ Case &HD86F&
 		arrChars(i) = "2kou"
 	Case &HDF1B&
 		arrChars(i) = "2diao"
+	Case &HDF1D&
+		arrChars(i) = "2chou"
 	Case &HDF6E&
 		arrChars(i) = "2dang"
 	End Select
@@ -116263,18 +116446,28 @@ Case &HD870&
 		arrChars(i) = "2xian"
 	Case &HDC37&
 		arrChars(i) = "2shang"
+	Case &HDC60&
+		arrChars(i) = "2xiang"
 	Case &HDCA9&
 		arrChars(i) = "2jia"
 	Case &HDCCA&
 		arrChars(i) = "2zhi"
+	Case &HDD29&
+		arrChars(i) = "2yin"
 	Case &HDD9B&
 		arrChars(i) = "2nao"
+	Case &HDDAE&
+		arrChars(i) = "2kou"
 	Case &HDDD5&
 		arrChars(i) = "2wan"
+	Case &HDDD8&
+		arrChars(i) = "2tuan"
 	Case &HDDD9&
 		arrChars(i) = "2bei"
 	Case &HDDF9&
 		arrChars(i) = "2guo"
+	Case &HDE27&
+		arrChars(i) = "2se"
 	Case &HDE7C&
 		arrChars(i) = "2ou"
 	Case &HDE88&
@@ -116283,6 +116476,8 @@ Case &HD870&
 		arrChars(i) = "2chan"
 	Case &HDF17&
 		arrChars(i) = "2he"
+	Case &HDF59&
+		arrChars(i) = "2zhan"
 	Case &HDF5B&
 		arrChars(i) = "2li"
 	Case &HDF61&
@@ -116303,6 +116498,8 @@ Case &HD871&
 		arrChars(i) = "2hai"
 	Case &HDC54&
 		arrChars(i) = "2zhong"
+	Case &HDC57&
+		arrChars(i) = "2jian"
 	Case &HDC61&
 		arrChars(i) = "2chou"
 	Case &HDC88&
@@ -116313,16 +116510,26 @@ Case &HD871&
 		arrChars(i) = "2lan"
 	Case &HDC98&
 		arrChars(i) = "2xin"
+	Case &HDCEB&
+		arrChars(i) = "2qiu"
 	Case &HDCFC&
 		arrChars(i) = "2tui"
 	Case &HDD42&
 		arrChars(i) = "2long"
 	Case &HDE13&
 		arrChars(i) = "2xun"
+	Case &HDE16&
+		arrChars(i) = "2jian"
 	Case &HDE18&
 		arrChars(i) = "2dan"
+	Case &HDE1C&
+		arrChars(i) = "2zhan"
+	Case &HDE1D&
+		arrChars(i) = "2zhen"
 	Case &HDE21&
 		arrChars(i) = "2yin"
+	Case &HDE22&
+		arrChars(i) = "2kuang"
 	Case &HDE29&
 		arrChars(i) = "2ting"
 	Case &HDE2B&
@@ -116333,8 +116540,12 @@ Case &HD871&
 		arrChars(i) = "2chen"
 	Case &HDE2F&
 		arrChars(i) = "2zhun"
+	Case &HDE35&
+		arrChars(i) = "2geng"
 	Case &HDE42&
 		arrChars(i) = "2yan"
+	Case &HDE46&
+		arrChars(i) = "2fan"
 	Case &HDE4A&
 		arrChars(i) = "2mo"
 	Case &HDE4B&
@@ -116361,6 +116572,10 @@ Case &HD872&
 	arrChars(i) = "1"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC8A&
+		arrChars(i) = "2si"
+	Case &HDCC0&
+		arrChars(i) = "2wei"
 	Case &HDCD9&
 		arrChars(i) = "2xu"
 	Case &HDCDE&
@@ -116373,10 +116588,16 @@ Case &HD872&
 		arrChars(i) = "2yin"
 	Case &HDD0A&
 		arrChars(i) = "2shi"
+	Case &HDD10&
+		arrChars(i) = "2ge"
 	Case &HDD1D&
 		arrChars(i) = "2hui"
 	Case &HDD25&
 		arrChars(i) = "2zhuan"
+	Case &HDD30&
+		arrChars(i) = "2huan"
+	Case &HDDC0&
+		arrChars(i) = "2qiang"
 	Case &HDE02&
 		arrChars(i) = "2qi"
 	Case &HDE0E&
@@ -116387,16 +116608,22 @@ Case &HD872&
 		arrChars(i) = "2nong"
 	Case &HDF29&
 		arrChars(i) = "2yi"
+	Case &HDF2B&
+		arrChars(i) = "2pi"
 	Case &HDF2D&
 		arrChars(i) = "2lun"
 	Case &HDF2E&
 		arrChars(i) = "2chang"
 	Case &HDF31&
 		arrChars(i) = "2jin"
+	Case &HDF32&
+		arrChars(i) = "2pi"
 	Case &HDF38&
 		arrChars(i) = "2shu"
 	Case &HDF39&
 		arrChars(i) = "2shen"
+	Case &HDF3A&
+		arrChars(i) = "2chu"
 	Case &HDF3B&
 		arrChars(i) = "2lu"
 	Case &HDF3F&
@@ -116411,6 +116638,8 @@ Case &HD872&
 		arrChars(i) = "2chun"
 	Case &HDF5B&
 		arrChars(i) = "2bo"
+	Case &HDF63&
+		arrChars(i) = "2xian"
 	Case &HDF64&
 		arrChars(i) = "2hou"
 	Case &HDF69&
@@ -116419,8 +116648,12 @@ Case &HD872&
 		arrChars(i) = "2hui"
 	Case &HDF6F&
 		arrChars(i) = "2pie"
+	Case &HDF72&
+		arrChars(i) = "2suo"
 	Case &HDF73&
 		arrChars(i) = "2xi"
+	Case &HDF74&
+		arrChars(i) = "2jie"
 	Case &HDF76&
 		arrChars(i) = "2hei"
 	Case &HDF78&
@@ -116435,6 +116668,8 @@ Case &HD872&
 		arrChars(i) = "2gai"
 	Case &HDFC0&
 		arrChars(i) = "2ji"
+	Case &HDFC5&
+		arrChars(i) = "2xia"
 	Case &HDFCE&
 		arrChars(i) = "2tui"
 	End Select
@@ -116453,10 +116688,14 @@ Case &HD873&
 		arrChars(i) = "2di"
 	Case &HDC5F&
 		arrChars(i) = "2wei"
+	Case &HDC66&
+		arrChars(i) = "2qi"
 	Case &HDC9C&
 		arrChars(i) = "2cheng"
 	Case &HDCF2&
 		arrChars(i) = "2chan"
+	Case &HDCF3&
+		arrChars(i) = "2fan"
 	Case &HDCF5&
 		arrChars(i) = "2pi"
 	Case &HDCF6&
@@ -116471,6 +116710,8 @@ Case &HD873&
 		arrChars(i) = "2huo"
 	Case &HDD0A&
 		arrChars(i) = "2lin"
+	Case &HDD10&
+		arrChars(i) = "2huan"
 	Case &HDD8B&
 		arrChars(i) = "2ju"
 	Case &HDD8D&
@@ -116491,6 +116732,8 @@ Case &HD873&
 		arrChars(i) = "2xi"
 	Case &HDDD5&
 		arrChars(i) = "2bu"
+	Case &HDE05&
+		arrChars(i) = "2chu"
 	Case &HDE18&
 		arrChars(i) = "2yan"
 	Case &HDE1A&
@@ -116501,6 +116744,8 @@ Case &HD873&
 		arrChars(i) = "2zhuo"
 	Case &HDE2A&
 		arrChars(i) = "2fan"
+	Case &HDE31&
+		arrChars(i) = "2qu"
 	Case &HDE7C&
 		arrChars(i) = "2xie"
 	Case &HDE88&
@@ -116519,6 +116764,84 @@ Case &HD874&
 	Select Case GetHexCode(arrChars(i+1))
 	Case &HDC16&
 		arrChars(i) = "2li"
+	Case &HDD1B&
+		arrChars(i) = "2jian"
+	End Select
+	End If
+End Select
+End Function
+Function TransliterateChineseD875(i As Integer) As String
+Select Case GetHexCode(arrChars(i))
+Case &HD875&
+	arrChars(i) = "1"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &HDD46&
+		arrChars(i) = "2suo"
+	Case &HDE13&
+		arrChars(i) = "2hu"
+	Case &HDEA6&
+		arrChars(i) = "2guo"
+	End Select
+	End If
+End Select
+End Function
+Function TransliterateChineseD876(i As Integer) As String
+Select Case GetHexCode(arrChars(i))
+Case &HD876&
+	arrChars(i) = "1"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &HDCC7&
+		arrChars(i) = "2dian"
+	Case &HDD30&
+		arrChars(i) = "2yu"
+	Case &HDE86&
+		arrChars(i) = "2zhua"
+	End Select
+	End If
+End Select
+End Function
+Function TransliterateChineseD877(i As Integer) As String
+Select Case GetHexCode(arrChars(i))
+Case &HD877&
+	arrChars(i) = "1"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC4A&
+		arrChars(i) = "2hong"
+	Case &HDE5C&
+		arrChars(i) = "2luo"
+	End Select
+	End If
+End Select
+End Function
+Function TransliterateChineseD878(i As Integer) As String
+Select Case GetHexCode(arrChars(i))
+Case &HD878&
+	arrChars(i) = "1"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &HDD8F&
+		arrChars(i) = "2lan"
+	Case &HDE61&
+		arrChars(i) = "2lu"
+	Case &HDE62&
+		arrChars(i) = "2zhi"
+	Case &HDE64&
+		arrChars(i) = "2gua"
+	Case &HDE67&
+		arrChars(i) = "2liang"
+	Case &HDE68&
+		arrChars(i) = "2gua"
+	Case &HDE6A&
+		arrChars(i) = "2zou"
+	Case &HDE6B&
+		arrChars(i) = "2rui"
+	Case &HDE6C&
+		arrChars(i) = "2cui"
+	Case &HDE6F&
+		arrChars(i) = "2cai"
 	End Select
 	End If
 End Select
@@ -116529,8 +116852,100 @@ Case &HD879&
 	arrChars(i) = "1"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC28&
+		arrChars(i) = "2ying"
+	Case &HDD02&
+		arrChars(i) = "2jie"
+	Case &HDD05&
+		arrChars(i) = "2fu"
+	Case &HDD0A&
+		arrChars(i) = "2liang"
+	Case &HDD81&
+		arrChars(i) = "2liang"
+	Case &HDDB1&
+		arrChars(i) = "2xie"
+	Case &HDE4A&
+		arrChars(i) = "2yin"
 	Case &HDE4B&
 		arrChars(i) = "2du"
+	Case &HDF74&
+		arrChars(i) = "2gu"
+	Case &HDF75&
+		arrChars(i) = "2er"
+	Case &HDF78&
+		arrChars(i) = "2chun"
+	Case &HDF79&
+		arrChars(i) = "2huan"
+	Case &HDF7A&
+		arrChars(i) = "2ge"
+	End Select
+	End If
+End Select
+End Function
+Function TransliterateChineseD87A(i As Integer) As String
+Select Case GetHexCode(arrChars(i))
+Case &HD87A&
+	arrChars(i) = "1"
+	If UBound(arrChars) >= i+1 Then
+	Select Case GetHexCode(arrChars(i+1))
+	Case &HDC1E&
+		arrChars(i) = "2qiang"
+	Case &HDCF2&
+		arrChars(i) = "2gang"
+	Case &HDCF3&
+		arrChars(i) = "2hong"
+	Case &HDCF4&
+		arrChars(i) = "2chan"
+	Case &HDCF5&
+		arrChars(i) = "2zhui"
+	Case &HDCF6&
+		arrChars(i) = "2lu&#x0308;"
+	Case &HDCF7&
+		arrChars(i) = "2ju"
+	Case &HDD32&
+		arrChars(i) = "2bi"
+	Case &HDDF4&
+		arrChars(i) = "2chang"
+	Case &HDDF5&
+		arrChars(i) = "2wei"
+	Case &HDE5B&
+		arrChars(i) = "2bi"
+	Case &HDEA3&
+		arrChars(i) = "2zong"
+	Case &HDEA5&
+		arrChars(i) = "2dun"
+	Case &HDEC2&
+		arrChars(i) = "2ning"
+	Case &HDF1C&
+		arrChars(i) = "2yi"
+	Case &HDF1D&
+		arrChars(i) = "2gui"
+	Case &HDF1E&
+		arrChars(i) = "2can"
+	Case &HDF1F&
+		arrChars(i) = "2huo"
+	Case &HDF20&
+		arrChars(i) = "2lu"
+	Case &HDF21&
+		arrChars(i) = "2hua"
+	Case &HDF22&
+		arrChars(i) = "2weng"
+	Case &HDF23&
+		arrChars(i) = "2xian"
+	Case &HDF24&
+		arrChars(i) = "2zhen"
+	Case &HDF65&
+		arrChars(i) = "2gong"
+	Case &HDF66&
+		arrChars(i) = "2chen"
+	Case &HDF68&
+		arrChars(i) = "2yan"
+	Case &HDF6A&
+		arrChars(i) = "2shuang"
+	Case &HDF70&
+		arrChars(i) = "2gang"
+	Case &HDFD9&
+		arrChars(i) = "2ke"
 	End Select
 	End If
 End Select

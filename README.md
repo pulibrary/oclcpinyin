@@ -33,8 +33,8 @@ Please also see the [AddPinyin Plugin for MarcEdit](https://library.princeton.ed
 
 ## Sources
 The macro contains a dictionary of Chinese characters and phrases based on three sources:
-- The [Unihan database](http://unicode.org/charts/unihan.html), copyright 1991-2020, Unicode, Inc. Last updated 2020-02-18.
-- [CC-CEDICT](http://www.mdbg.net/chinese/dictionary?page=cedict), copyright 2020, MDBG. Last updated 2021-04-21.
+- The [Unihan database](http://unicode.org/charts/unihan.html), copyright 1991-2020, Unicode, Inc. Last updated 2023-07-15.
+- [CC-CEDICT](http://www.mdbg.net/chinese/dictionary?page=cedict), copyright 2020, MDBG. Last updated 2024-02-08.
 - User feedback.
 
 ## Feedback

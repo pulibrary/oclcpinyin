@@ -5,12 +5,12 @@
 'Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
 ' http://creativecommons.org/licenses/by-sa/3.0/
 'Dictionary based on three sources:
-' - Unihan database: http://unicode.org/charts/unihan.html . Last updated 2020-02-18.
-' - CC-CEDICT: http://www.mdbg.net/chindict/chindict.php?page=cedict . Last Updated 2020-04-06.
-' - User feedback: https://library.princeton.edu/eastasian/oclcpinyin/pinyinform.php
+' - Unihan database: http://unicode.org/charts/unihan.html . Last updated 2023-07-15.
+' - CC-CEDICT: http://www.mdbg.net/chinese/dictionary?page=cedict . Last Updated 2024-02-08.
+' - User feedback: https://github.com/pulibrary/oclcpinyin/issues
 'Macro Created: 5 January 2011
-'Macro last modified: 21 April 2021
-'Macro version: 2.1.1
+'Macro last modified: 8 February 2024
+'Macro version: 2.1.2
 
 Declare Function IsChineseChar(sNCR) As Integer
 Declare Function GetHexCode(sChar As String) as Long
@@ -27,7 +27,10 @@ Global arrNums()
 Sub Main
 
    Dim CS As Object
-   Set CS = CreateObject("Connex.Client")
+   On Error Resume Next
+   Set CS = GetObject( , "Connex.Client" )
+   On Error GoTo 0
+   If CS Is Nothing Then Set CS = CreateObject( "Connex.Client" )
    ReDim arrChars(0)
 
    bool = CS.GetFieldLineUnicode(CS.CursorRow, sField)
