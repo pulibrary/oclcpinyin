@@ -7,7 +7,7 @@ must be generated automatically, using text files as a starting point.  The Perl
 in this directory are designed to generate this code.  The code can then be copied and pasted
 into the OCLC Macro editor and saved.  This is how the macro is finally "compiled".
 
-Basically, the Unihan list is used as the source of single-character entries, and CC-CEDICT as the source of multi-character entries.  (Though entries from either list can be overridden by one of the manual dictionary files).  To keep the dictionary has small as possible, the scripts only includes a multi-character entry if the romanization is different than what you would get considering the characters individually (i.e. at least one character has a variant reading, or special spacing/capitlization needs to be used).
+Basically, the Unihan list is used as the source of single-character entries, and CC-CEDICT as the source of multi-character entries.  (Though entries from either list can be overridden by one of the manual dictionary files).  To keep the dictionary has small as possible, the scripts only include a multi-character entry if the romanization is different than what you would get considering the characters individually (i.e. at least one character has a variant reading, or special spacing/capitlization needs to be used).
 
 The macro is written in OCLC Macro Language (OML), which is an extension of Softbridge Visual Basic 3.0.  
 
