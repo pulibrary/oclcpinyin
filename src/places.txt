@@ -1,6 +1,6 @@
 ﻿上海	Shanghai
 上海市	Shanghai Shi
-中华人民共和国	Zhonghua Renmin Gongheguo
+中	华人民共和国	Zhonghua Renmin Gongheguo
 中华	Zhonghua
 中国	Zhongguo
 中國	﻿Zhongguo
@@ -289,9 +289,9 @@
 洛陽市	Luoyang Shi
 南通	Nantong
 南通市	Nantong Shi
-宁波 	Ningbo
+宁波	Ningbo
 寧波	Ningbo
-宁波市 	Ningbo Shi
+宁波市	Ningbo Shi
 寧波市	Ningbo Shi
 青岛	Qingdao
 青島	Qingdao
@@ -407,14 +407,14 @@
 阿根廷	Agenting
 愛爾蘭	Aierlan
 爱尔兰	Aierlan
-愛荷華州	Aihehua zhou
-爱荷华州	Aihehua zhou
+愛荷華州	Aihehua Zhou
+爱荷华州	Aihehua Zhou
 埃及	Aiji
 埃塞俄比亚	Aisai'ebiya
 埃塞俄比亞	Aisai'ebiya
 愛沙尼亞	Aishaniya
 爱沙尼亚	Aishaniya
-阿肯色州	Akensezhou
+阿肯色州	Akense Zhou
 阿拉伯	Alabo
 阿拉斯加	Alasijia
 阿路巴	Aluba
@@ -516,6 +516,7 @@
 大峡谷	Daxiagu
 大峽谷	Daxiagu
 大西洋	Daxiyang
+大洋洲	Dayang Zhou
 德国	Deguo
 德國	Deguo
 德意志联邦共和国	Deyizhi Lianbang Gongheguo
@@ -542,7 +543,7 @@
 法屬圭亞那	Fashuguiyana
 菲律宾	Feilübin
 菲律賓	Feilübin
-非洲	Feizhou
+非洲	Fei Zhou
 芬兰	Fenlan
 芬蘭	Fenlan
 佛罗里达	Foluolida
@@ -604,7 +605,7 @@
 加薩走廊	Jiasazoulang
 加維斯島	Jiaweisidao
 加维斯岛	Jiaweisidao
-加州	Jiazhou
+加州	Jia Zhou
 吉布地	Jibudi
 捷克共和国	Jieke Gongheguo
 捷克共和國	Jieke Gongheguo
@@ -635,6 +636,7 @@
 肯亚	Kenya
 肯亞	Kenya
 科威特	Keweite
+拉丁美洲	Lading Mei Zhou
 莱比瑞亚	Laibiruiya
 萊比瑞亞	Laibiruiya
 賴索托	Laisuotuo
@@ -688,6 +690,7 @@
 馬紹爾群島	Mashao'erqündao
 美国	Meiguo
 美國	Meiguo
+美洲	Mei Zhou
 美属萨摩亚	Meizhusamoya
 美屬薩摩亞	Meizhusamoya
 蒙古	Menggu
@@ -716,8 +719,8 @@
 奈及利亞	Naijiliya
 納米比亞	Namibiya
 纳米比亚	Namibiya
-南极洲	Nanjizhou
-南極洲	Nanjizhou
+南极洲	Nanji Zhou
+南極洲	Nanji Zhou
 南斯拉夫	Nansilafu
 納瓦薩島	Nawasadao
 纳瓦萨岛	Nawasadao
@@ -735,8 +738,8 @@
 諾魯	Nuolu
 诺鲁	Nuolu
 挪威	Nuowei
-欧洲	Ouzhou
-歐洲	Ouzhou
+欧洲	Ou Zhou
+歐洲	Ou Zhou
 帕迈拉到	Pamailadao
 帕邁拉到	Pamailadao
 浦隆迪	Pulongdi
@@ -805,8 +808,8 @@
 亞美尼亞	Yameiniya
 央棉岛	Yangmiandao
 央棉島	Yangmiandao
-亚洲	Yazhou
-亞洲	Yazhou
+亚洲	Ya Zhou
+亞洲	Ya Zhou
 叶门	Yemen
 葉門	Yemen
 意大利	Yidali
@@ -899,8 +902,10 @@
 達州市	Dazhou Shi 
 东港市	Donggang Shi
 東港市	Donggang Shi
-鄂尔多斯市城建	E'ersuosi Shi
-鄂爾多斯市城建	E'ersuosi Shi
+鄂尔多斯	E'erduosi
+鄂爾多斯	E'erduosi
+鄂尔多斯市	E'erduosi Shi
+鄂爾多斯市	E'erduosi Shi
 鄂州市	Ezhou Shi
 肥城县	Feicheng Xian 
 肥城縣	Feicheng Xian 
