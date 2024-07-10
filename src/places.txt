@@ -1,6 +1,6 @@
 ﻿上海	Shanghai
 上海市	Shanghai Shi
-中	华人民共和国	Zhonghua Renmin Gongheguo
+中华人民共和国	Zhonghua Renmin Gongheguo
 中华	Zhonghua
 中国	Zhongguo
 中國	﻿Zhongguo

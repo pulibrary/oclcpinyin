@@ -20585,11 +20585,37 @@ Case &H4E2B&
 Case &H4E2C&
 	arrChars(i) = "1qiang"
 Case &H4E2D&
-	arrChars(i) = "1华人民共和国"
+	arrChars(i) = "1zhong"
 	If UBound(arrChars) >= i+1 Then
 	Select Case GetHexCode(arrChars(i+1))
 	Case &H534E&
 		arrChars(i) = "2Zhonghua"
+		If UBound(arrChars) >= i+2 Then
+		Select Case GetHexCode(arrChars(i+2))
+		Case &H4EBA&
+			If UBound(arrChars) >= i+3 Then
+			Select Case GetHexCode(arrChars(i+3))
+			Case &H6C11&
+				If UBound(arrChars) >= i+4 Then
+				Select Case GetHexCode(arrChars(i+4))
+				Case &H5171&
+					If UBound(arrChars) >= i+5 Then
+					Select Case GetHexCode(arrChars(i+5))
+					Case &H548C&
+						If UBound(arrChars) >= i+6 Then
+						Select Case GetHexCode(arrChars(i+6))
+						Case &H56FD&
+							arrChars(i) = "7Zhonghua Renmin Gongheguo"
+						End Select
+						End If
+					End Select
+					End If
+				End Select
+				End If
+			End Select
+			End If
+		End Select
+		End If
 	Case &H56FD&
 		arrChars(i) = "2Zhongguo"
 	Case &H570B&
