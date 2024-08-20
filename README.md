@@ -38,9 +38,7 @@ The macro contains a dictionary of Chinese characters and phrases based on three
 - User feedback.
 
 ## Feedback
-To suggest new terms for the dictionary (or to provide general feedback), please go to the "Issues" tab at the top of this github page, and click the "New Issue" button. Alternatively, you can provide feedback using the form below. (Please select the option "Feedback regarding website or software tools".)
-
-https://library.princeton.edu/eastasian/contact 
+To suggest new terms for the dictionary (or to provide general feedback), please go to the "Issues" tab at the top of this github page, and click the "New Issue" button. 
 
 ## Functionality
 - This macro converts Chinese characters to pinyin, and the converted text is placed in a separate field which is then linked with the original-language field.
