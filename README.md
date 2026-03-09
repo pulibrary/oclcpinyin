@@ -68,6 +68,8 @@ To suggest new terms for the dictionary (or to provide general feedback), please
 
 ## Extra Macros for Manual Adjustments
 
+[Download the "Extras" macro](https://github.com/pulibrary/oclcpinyin/releases/latest/download/PinyinExtras.mbk)
+
 - The Pinyin Conversion Macro may not always format proper names or numbers in the desired way. For this reason, some extra macros have been provided to make it easier to make manual adjustments to the Romanized field. These macros can be found in the macro book PinyinExtras.mbk. These macros are designed to be run after the Pinyin Conversion Macro has created the Romanized field. To use any of these macros, simply highlight some text in the Romanized field and run the macro.
 - The **"ProperName"** macro allows you to format text as a proper name (e.g. "ao da li ya" becomes "Aodaliya"). The macro takes the highlighted text, capitalizes the first letter, and removes all spaces between the syllables. Spaces at the beginning or the end of the selection are preserved.
 - The **"PersonalName"** macro allows you to format text as a personal name (e.g. "hu jin tao" becaomes "Hu Jintao"). The macro takes the highlighted text, capitalizes the first letters of the first and second syllables, and removes the space between the second and third syllables if there is a third syllable. Any text beyond the third syllable is left unchanged. Any spaces at the beginning or the end of the selection are preserved. The selection must contain at least one other space. No comma is added to the name, since the Pinyin Conversion Macro already does this in the fields in which it is needed.
